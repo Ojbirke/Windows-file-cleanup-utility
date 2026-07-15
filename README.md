@@ -42,4 +42,4 @@ Se [DELING.md](DELING.md) for full utgivelses- og publiseringsguide.
 
 ## Lisens
 
-Gratis å bruke. Liker du programmet? [Doner gjerne ☕](https://www.paypal.me/DITTNAVN)
+Gratis å bruke. Liker du programmet? [Doner gjerne ☕](https://www.paypal.me/ojbirke)

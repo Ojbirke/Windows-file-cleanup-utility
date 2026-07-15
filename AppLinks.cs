@@ -8,8 +8,7 @@ namespace StoreFiler;
 /// </summary>
 public static class AppLinks
 {
-    // 👉 Bytt "DITTNAVN" med ditt PayPal.me-brukernavn (paypal.me/DITTNAVN)
-    public const string Donation = "https://www.paypal.me/DITTNAVN";
+    public const string Donation = "https://www.paypal.me/ojbirke";
 
     public const string Website = "https://github.com/Ojbirke/Windows-file-cleanup-utility";
 
