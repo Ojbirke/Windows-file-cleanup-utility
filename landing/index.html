@@ -1,10 +1,11 @@
 <!--
-  Byteroom – landingsside
+  Byteroom – landingsside (tospråklig NO/EN)
   ────────────────────────────────────────────────────────────
   PayPal:  https://www.paypal.me/ojbirke
   GitHub:  https://github.com/Ojbirke/Windows-file-cleanup-utility
-  Nedlastingsknappene peker på GitHub Releases – last opp
-  Byteroom-Setup-1.0.0.exe og Byteroom.exe til en Release der.
+  Nettside: https://byteroom.org
+  Nedlastingsknappene peker på GitHub Releases.
+  Språk: 🌐-knappen bytter NO/EN, auto-velger fra nettleser, husker valget.
 -->
 <title>Byteroom — finn og frigjør plass på PC-en</title>
 
@@ -28,8 +29,6 @@
     --mono: "Cascadia Code", "Cascadia Mono", Consolas, "SF Mono", ui-monospace, monospace;
     --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
     --shadow: 0 24px 60px -20px rgba(0,0,0,.6);
-  }
-  :root[data-theme="light"], :root:not([data-theme="dark"]) {
   }
   @media (prefers-color-scheme: light) {
     :root:not([data-theme="dark"]) {
@@ -73,7 +72,6 @@
   .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
   a { color: inherit; }
 
-  /* subtil rutenett-bakgrunn øverst, som en disk-flate */
   .top {
     position: relative; overflow: hidden;
     border-bottom: 1px solid var(--line);
@@ -101,9 +99,17 @@
     display: grid; place-items: center; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
   }
   .logo svg { width: 22px; height: 22px; }
+  .nav-right { display: flex; align-items: center; gap: 18px; }
   .nav-links { display: flex; gap: 22px; align-items: center; font-size: .95rem; color: var(--muted); }
   .nav-links a { text-decoration: none; }
   .nav-links a:hover { color: var(--ink); }
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 12px; font-size: .85rem; font-family: var(--sans);
+    font-weight: 600; letter-spacing: .02em;
+  }
+  .lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
   /* HERO */
   .hero { position: relative; display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding: 56px 0 72px; }
@@ -171,7 +177,6 @@
   .card h3 { margin: 0 0 8px; font-size: 1.12rem; letter-spacing: -.01em; }
   .card p { margin: 0; color: var(--muted); font-size: .96rem; }
 
-  /* Sikkerhet / trafikklys */
   .safety-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
   .tl { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; position: relative; overflow: hidden; }
   .tl::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
@@ -236,26 +241,31 @@
         </span>
         Byteroom
       </div>
-      <div class="nav-links">
-        <a href="#funksjoner">Funksjoner</a>
-        <a href="#sikkerhet">Sikkerhet</a>
-        <a href="#last">Last ned</a>
-        <a href="https://github.com/Ojbirke/Windows-file-cleanup-utility">GitHub</a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#funksjoner" data-i18n="nav_features">Funksjoner</a>
+          <a href="#sikkerhet" data-i18n="nav_safety">Sikkerhet</a>
+          <a href="#last" data-i18n="nav_download">Last ned</a>
+          <a href="https://github.com/Ojbirke/Windows-file-cleanup-utility">GitHub</a>
+        </div>
+        <button class="lang-toggle" type="button" onclick="toggleLang()" aria-label="Language / språk">
+          <span aria-hidden="true">🌐</span><span data-lang-label>EN</span>
+        </button>
       </div>
     </nav>
 
     <header class="hero">
       <div>
-        <span class="eyebrow">Windows 10 &amp; 11 · Gratis</span>
-        <h1>Finn de <span class="hl">store filene</span> som spiser opp disken din.</h1>
-        <p class="lede">Skann en mappe eller hele disken, se de største filene øverst, og få vite hvilke som er <strong>trygge å slette</strong> — alt med utseende og følelse som Utforskeren.</p>
+        <span class="eyebrow" data-i18n="hero_eyebrow">Windows 10 &amp; 11 · Gratis</span>
+        <h1 data-i18n-html="hero_h1">Finn de <span class="hl">store filene</span> som spiser opp disken din.</h1>
+        <p class="lede" data-i18n-html="hero_lede">Skann en mappe eller hele disken, se de største filene øverst, og få vite hvilke som er <strong>trygge å slette</strong> — alt med utseende og følelse som Utforskeren.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/Byteroom-Setup-1.0.0.exe">
+          <a class="btn btn-primary" data-i18n-html="hero_btn_primary" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/Byteroom-Setup-1.0.0.exe">
             ↓ Last ned for Windows <small>Setup · 66 MB</small>
           </a>
-          <a class="btn btn-ghost" href="#last">Andre nedlastinger</a>
+          <a class="btn btn-ghost" data-i18n="hero_btn_ghost" href="#last">Andre nedlastinger</a>
         </div>
-        <p class="req">Ingen .NET nødvendig · 64-bit · Sletter til papirkurven</p>
+        <p class="req" data-i18n="hero_req">Ingen .NET nødvendig · 64-bit · Sletter til papirkurven</p>
       </div>
 
       <div class="window" aria-hidden="true">
@@ -266,12 +276,12 @@
           <span class="tb-title">Byteroom — C:\</span>
         </div>
         <div class="toolbar">
-          <span>🔍 Skanner…</span>
+          <span data-i18n="mock_scan">🔍 Skanner…</span>
           <span class="scanbar"></span>
-          <span>1 284 mapper</span>
+          <span data-i18n="mock_folders">1 284 mapper</span>
         </div>
         <table>
-          <thead><tr><th style="width:26px"></th><th>Navn</th><th style="text-align:right">Størrelse</th></tr></thead>
+          <thead><tr><th style="width:26px"></th><th data-i18n="mock_col_name">Navn</th><th style="text-align:right" data-i18n="mock_col_size">Størrelse</th></tr></thead>
           <tbody>
             <tr><td><span class="safety s-safe"></span></td><td class="fname">Log (old 8).txt</td><td class="size">210.1 GB</td></tr>
             <tr><td><span class="safety s-warn"></span></td><td class="fname">Ubuntu.vhdx</td><td class="size">12.8 GB</td></tr>
@@ -288,39 +298,39 @@
 
 <section id="funksjoner">
   <div class="wrap">
-    <p class="kicker">Hva det gjør</p>
-    <h2>Rydd opp uten å gjette.</h2>
-    <p class="section-lede">Byteroom graver gjennom disken, sorterer alt etter størrelse og forteller deg hva hver fil faktisk er — så du frigjør plass med selvtillit.</p>
+    <p class="kicker" data-i18n="feat_kicker">Hva det gjør</p>
+    <h2 data-i18n="feat_h2">Rydd opp uten å gjette.</h2>
+    <p class="section-lede" data-i18n="feat_lede">Byteroom graver gjennom disken, sorterer alt etter størrelse og forteller deg hva hver fil faktisk er — så du frigjør plass med selvtillit.</p>
     <div class="features">
       <div class="card">
         <div class="ico">📊</div>
-        <h3>Største først</h3>
-        <p>Rekursiv skann av en mappe eller hel disk, sortert så plassgrisene ligger øverst. Lever fremdrift underveis — mapper, filer og gigabyte i sanntid.</p>
+        <h3 data-i18n="feat1_h3">Største først</h3>
+        <p data-i18n="feat1_p">Rekursiv skann av en mappe eller hel disk, sortert så plassgrisene ligger øverst. Lever fremdrift underveis — mapper, filer og gigabyte i sanntid.</p>
       </div>
       <div class="card">
         <div class="ico">🚦</div>
-        <h3>Fargekodet trygghet</h3>
-        <p>Grønn, gul eller rød prikk på hver fil. Kjenner igjen apper som Zwift og Steam, cache, logger, systemfiler og dine egne dokumenter.</p>
+        <h3 data-i18n="feat2_h3">Fargekodet trygghet</h3>
+        <p data-i18n="feat2_p">Grønn, gul eller rød prikk på hver fil. Kjenner igjen apper som Zwift og Steam, cache, logger, systemfiler og dine egne dokumenter.</p>
       </div>
       <div class="card">
         <div class="ico">🔬</div>
-        <h3>Analyse per fil</h3>
-        <p>Klikk en fil og se hva den er, hvilket program den hører til og en anbefaling om det er trygt å slette — alt lokalt, ingen data forlater PC-en.</p>
+        <h3 data-i18n="feat3_h3">Analyse per fil</h3>
+        <p data-i18n="feat3_p">Klikk en fil og se hva den er, hvilket program den hører til og en anbefaling om det er trygt å slette — alt lokalt, ingen data forlater PC-en.</p>
       </div>
       <div class="card">
         <div class="ico">🗑️</div>
-        <h3>Trygg sletting</h3>
-        <p>Alt går til papirkurven, aldri rett i søpla. Angre når som helst. Ledig diskplass oppdateres med én gang.</p>
+        <h3 data-i18n="feat4_h3">Trygg sletting</h3>
+        <p data-i18n="feat4_p">Alt går til papirkurven, aldri rett i søpla. Angre når som helst. Ledig diskplass oppdateres med én gang.</p>
       </div>
       <div class="card">
         <div class="ico">⚡</div>
-        <h3>Hurtigfilter</h3>
-        <p>Vis «bare trygge» med ett klikk, eller filtrer på størrelse. Samle alt det grønne øverst og slett i bulk.</p>
+        <h3 data-i18n="feat5_h3">Hurtigfilter</h3>
+        <p data-i18n="feat5_p">Vis «bare trygge» med ett klikk, eller filtrer på størrelse. Samle alt det grønne øverst og slett i bulk.</p>
       </div>
       <div class="card">
         <div class="ico">🪟</div>
-        <h3>Kjent grensesnitt</h3>
-        <p>Ser ut og føles som Utforskeren — diskliste med ledig plass, sorterbare kolonner, høyreklikk-meny. Ingen læringskurve.</p>
+        <h3 data-i18n="feat6_h3">Kjent grensesnitt</h3>
+        <p data-i18n="feat6_p">Ser ut og føles som Utforskeren — diskliste med ledig plass, sorterbare kolonner, høyreklikk-meny. Ingen læringskurve.</p>
       </div>
     </div>
   </div>
@@ -328,25 +338,25 @@
 
 <section id="sikkerhet">
   <div class="wrap">
-    <p class="kicker">Trafikklyset</p>
-    <h2>Fire farger. Null gjetting.</h2>
-    <p class="section-lede">Hver fil får en vurdering ut fra hvor den ligger og hva den er. Vurderingen er en lokal beste-gjetning — du bestemmer alltid selv.</p>
+    <p class="kicker" data-i18n="safe_kicker">Trafikklyset</p>
+    <h2 data-i18n="safe_h2">Fire farger. Null gjetting.</h2>
+    <p class="section-lede" data-i18n="safe_lede">Hver fil får en vurdering ut fra hvor den ligger og hva den er. Vurderingen er en lokal beste-gjetning — du bestemmer alltid selv.</p>
     <div class="safety-grid">
       <div class="tl safe">
-        <div class="lbl"><span class="safety s-safe"></span> Trygg å slette</div>
-        <p>Cache, midlertidige filer, logger, krasjdumper og ferdige installasjonsfiler. Bygges opp igjen ved behov.</p>
+        <div class="lbl" data-i18n-html="safe1_lbl"><span class="safety s-safe"></span> Trygg å slette</div>
+        <p data-i18n="safe1_p">Cache, midlertidige filer, logger, krasjdumper og ferdige installasjonsfiler. Bygges opp igjen ved behov.</p>
       </div>
       <div class="tl warn">
-        <div class="lbl"><span class="safety s-warn"></span> Vær forsiktig</div>
-        <p>Dine dokumenter, bilder, video, arkiver og skyfiler. Sjekk at du ikke trenger innholdet før du sletter.</p>
+        <div class="lbl" data-i18n-html="safe2_lbl"><span class="safety s-warn"></span> Vær forsiktig</div>
+        <p data-i18n="safe2_p">Dine dokumenter, bilder, video, arkiver og skyfiler. Sjekk at du ikke trenger innholdet før du sletter.</p>
       </div>
       <div class="tl danger">
-        <div class="lbl"><span class="safety s-danger"></span> Bør ikke slettes</div>
-        <p>Windows-systemfiler og filer inne i installerte programmer. Avinstaller heller hele programmet.</p>
+        <div class="lbl" data-i18n-html="safe3_lbl"><span class="safety s-danger"></span> Bør ikke slettes</div>
+        <p data-i18n="safe3_p">Windows-systemfiler og filer inne i installerte programmer. Avinstaller heller hele programmet.</p>
       </div>
       <div class="tl unknown">
-        <div class="lbl"><span class="safety" style="background:var(--unknown)"></span> Usikker</div>
-        <p>Filer programmet ikke klarer å plassere trygt. Undersøk i Utforsker før du bestemmer deg.</p>
+        <div class="lbl" data-i18n-html="safe4_lbl"><span class="safety" style="background:var(--unknown)"></span> Usikker</div>
+        <p data-i18n="safe4_p">Filer programmet ikke klarer å plassere trygt. Undersøk i Utforsker før du bestemmer deg.</p>
       </div>
     </div>
   </div>
@@ -354,30 +364,30 @@
 
 <section id="last">
   <div class="wrap">
-    <p class="kicker">Last ned</p>
-    <h2>Velg din versjon.</h2>
-    <p class="section-lede" style="margin-inline:auto">Begge kjører på Windows 10 og 11 (64-bit) uten at .NET må installeres.</p>
+    <p class="kicker" data-i18n="dl_kicker">Last ned</p>
+    <h2 data-i18n="dl_h2">Velg din versjon.</h2>
+    <p class="section-lede" style="margin-inline:auto" data-i18n="dl_lede">Begge kjører på Windows 10 og 11 (64-bit) uten at .NET må installeres.</p>
     <div class="dl-cards">
       <div class="dl reco">
-        <span class="badge">Anbefalt</span>
-        <h3>Installer</h3>
+        <span class="badge" data-i18n="dl_badge">Anbefalt</span>
+        <h3 data-i18n="dl1_h3">Installer</h3>
         <div class="meta">Byteroom-Setup-1.0.0.exe · 66 MB</div>
         <ul>
-          <li>Snarvei i Start-menyen</li>
-          <li>Enkel avinstallering</li>
-          <li>Installerer som et vanlig program</li>
+          <li data-i18n="dl1_li1">Snarvei i Start-menyen</li>
+          <li data-i18n="dl1_li2">Enkel avinstallering</li>
+          <li data-i18n="dl1_li3">Installerer som et vanlig program</li>
         </ul>
-        <a class="btn btn-primary" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/Byteroom-Setup-1.0.0.exe">↓ Last ned installer</a>
+        <a class="btn btn-primary" data-i18n="dl1_btn" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/Byteroom-Setup-1.0.0.exe">↓ Last ned installer</a>
       </div>
       <div class="dl">
-        <h3>Portabel</h3>
+        <h3 data-i18n="dl2_h3">Portabel</h3>
         <div class="meta">Byteroom.exe · 71 MB</div>
         <ul>
-          <li>Ingen installasjon</li>
-          <li>Kjør fra minnepenn</li>
-          <li>Bare dobbeltklikk</li>
+          <li data-i18n="dl2_li1">Ingen installasjon</li>
+          <li data-i18n="dl2_li2">Kjør fra minnepenn</li>
+          <li data-i18n="dl2_li3">Bare dobbeltklikk</li>
         </ul>
-        <a class="btn btn-ghost" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/Byteroom.exe">↓ Last ned portabel</a>
+        <a class="btn btn-ghost" data-i18n="dl2_btn" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/Byteroom.exe">↓ Last ned portabel</a>
       </div>
     </div>
   </div>
@@ -386,19 +396,114 @@
 <section class="donate">
   <div class="wrap">
     <div class="heart-wrap"><span style="font-size:26px">❤</span></div>
-    <h2>Liker du Byteroom?</h2>
-    <p class="section-lede" style="margin-inline:auto">Programmet er gratis. Vil du takke for jobben, setter jeg stor pris på en liten donasjon — den holder prosjektet i live.</p>
-    <a class="btn btn-donate" href="https://www.paypal.me/ojbirke">Spander en kaffe ☕</a>
+    <h2 data-i18n="donate_h2">Liker du Byteroom?</h2>
+    <p class="section-lede" style="margin-inline:auto" data-i18n="donate_lede">Programmet er gratis. Vil du takke for jobben, setter jeg stor pris på en liten donasjon — den holder prosjektet i live.</p>
+    <a class="btn btn-donate" data-i18n="donate_btn" href="https://www.paypal.me/ojbirke">Spander en kaffe ☕</a>
   </div>
 </section>
 
 <footer>
   <div class="wrap foot-row">
-    <div>Byteroom · v1.0.0 · Laget for Windows</div>
+    <div data-i18n="foot_made">Byteroom · v1.0.0 · Laget for Windows</div>
     <div class="foot-links">
-      <a href="#last">Last ned</a>
+      <a href="#last" data-i18n="foot_download">Last ned</a>
       <a href="https://github.com/Ojbirke/Windows-file-cleanup-utility">GitHub</a>
-      <a href="https://www.paypal.me/ojbirke">Doner</a>
+      <a href="https://www.paypal.me/ojbirke" data-i18n="foot_donate">Doner</a>
     </div>
   </div>
 </footer>
+
+<script>
+  const I18N = {
+    title: { no: `Byteroom — finn og frigjør plass på PC-en`, en: `Byteroom — find and free up space on your PC` },
+    nav_features: { no: `Funksjoner`, en: `Features` },
+    nav_safety: { no: `Sikkerhet`, en: `Safety` },
+    nav_download: { no: `Last ned`, en: `Download` },
+    hero_eyebrow: { no: `Windows 10 & 11 · Gratis`, en: `Windows 10 & 11 · Free` },
+    hero_h1: { no: `Finn de <span class="hl">store filene</span> som spiser opp disken din.`, en: `Find the <span class="hl">big files</span> eating up your disk.` },
+    hero_lede: { no: `Skann en mappe eller hele disken, se de største filene øverst, og få vite hvilke som er <strong>trygge å slette</strong> — alt med utseende og følelse som Utforskeren.`, en: `Scan a folder or your whole disk, see the biggest files first, and learn which are <strong>safe to delete</strong> — all with the look and feel of File Explorer.` },
+    hero_btn_primary: { no: `↓ Last ned for Windows <small>Setup · 66 MB</small>`, en: `↓ Download for Windows <small>Setup · 66 MB</small>` },
+    hero_btn_ghost: { no: `Andre nedlastinger`, en: `Other downloads` },
+    hero_req: { no: `Ingen .NET nødvendig · 64-bit · Sletter til papirkurven`, en: `No .NET required · 64-bit · Deletes to Recycle Bin` },
+    mock_scan: { no: `🔍 Skanner…`, en: `🔍 Scanning…` },
+    mock_folders: { no: `1 284 mapper`, en: `1,284 folders` },
+    mock_col_name: { no: `Navn`, en: `Name` },
+    mock_col_size: { no: `Størrelse`, en: `Size` },
+    feat_kicker: { no: `Hva det gjør`, en: `What it does` },
+    feat_h2: { no: `Rydd opp uten å gjette.`, en: `Clean up without guessing.` },
+    feat_lede: { no: `Byteroom graver gjennom disken, sorterer alt etter størrelse og forteller deg hva hver fil faktisk er — så du frigjør plass med selvtillit.`, en: `Byteroom digs through your disk, sorts everything by size and tells you what each file actually is — so you free up space with confidence.` },
+    feat1_h3: { no: `Største først`, en: `Biggest first` },
+    feat1_p: { no: `Rekursiv skann av en mappe eller hel disk, sortert så plassgrisene ligger øverst. Lever fremdrift underveis — mapper, filer og gigabyte i sanntid.`, en: `Recursive scan of a folder or whole disk, sorted so the space hogs sit on top. Live progress as it goes — folders, files and gigabytes in real time.` },
+    feat2_h3: { no: `Fargekodet trygghet`, en: `Color-coded safety` },
+    feat2_p: { no: `Grønn, gul eller rød prikk på hver fil. Kjenner igjen apper som Zwift og Steam, cache, logger, systemfiler og dine egne dokumenter.`, en: `A green, yellow or red dot on every file. Recognizes apps like Zwift and Steam, caches, logs, system files and your own documents.` },
+    feat3_h3: { no: `Analyse per fil`, en: `Per-file analysis` },
+    feat3_p: { no: `Klikk en fil og se hva den er, hvilket program den hører til og en anbefaling om det er trygt å slette — alt lokalt, ingen data forlater PC-en.`, en: `Click a file to see what it is, which program it belongs to and a recommendation on whether it's safe to delete — all local, no data leaves your PC.` },
+    feat4_h3: { no: `Trygg sletting`, en: `Safe deletion` },
+    feat4_p: { no: `Alt går til papirkurven, aldri rett i søpla. Angre når som helst. Ledig diskplass oppdateres med én gang.`, en: `Everything goes to the Recycle Bin, never straight to trash. Undo any time. Free disk space updates instantly.` },
+    feat5_h3: { no: `Hurtigfilter`, en: `Quick filter` },
+    feat5_p: { no: `Vis «bare trygge» med ett klikk, eller filtrer på størrelse. Samle alt det grønne øverst og slett i bulk.`, en: `Show “safe only” with one click, or filter by size. Gather all the green on top and delete in bulk.` },
+    feat6_h3: { no: `Kjent grensesnitt`, en: `Familiar interface` },
+    feat6_p: { no: `Ser ut og føles som Utforskeren — diskliste med ledig plass, sorterbare kolonner, høyreklikk-meny. Ingen læringskurve.`, en: `Looks and feels like File Explorer — a drive list with free space, sortable columns, right-click menu. No learning curve.` },
+    safe_kicker: { no: `Trafikklyset`, en: `The traffic light` },
+    safe_h2: { no: `Fire farger. Null gjetting.`, en: `Four colors. Zero guessing.` },
+    safe_lede: { no: `Hver fil får en vurdering ut fra hvor den ligger og hva den er. Vurderingen er en lokal beste-gjetning — du bestemmer alltid selv.`, en: `Every file gets an assessment based on where it lives and what it is. It's a local best guess — you always decide.` },
+    safe1_lbl: { no: `<span class="safety s-safe"></span> Trygg å slette`, en: `<span class="safety s-safe"></span> Safe to delete` },
+    safe1_p: { no: `Cache, midlertidige filer, logger, krasjdumper og ferdige installasjonsfiler. Bygges opp igjen ved behov.`, en: `Caches, temporary files, logs, crash dumps and used-up installers. Rebuilt when needed.` },
+    safe2_lbl: { no: `<span class="safety s-warn"></span> Vær forsiktig`, en: `<span class="safety s-warn"></span> Use caution` },
+    safe2_p: { no: `Dine dokumenter, bilder, video, arkiver og skyfiler. Sjekk at du ikke trenger innholdet før du sletter.`, en: `Your documents, photos, video, archives and cloud files. Check you don't need the contents before deleting.` },
+    safe3_lbl: { no: `<span class="safety s-danger"></span> Bør ikke slettes`, en: `<span class="safety s-danger"></span> Don't delete` },
+    safe3_p: { no: `Windows-systemfiler og filer inne i installerte programmer. Avinstaller heller hele programmet.`, en: `Windows system files and files inside installed programs. Uninstall the whole program instead.` },
+    safe4_lbl: { no: `<span class="safety" style="background:var(--unknown)"></span> Usikker`, en: `<span class="safety" style="background:var(--unknown)"></span> Uncertain` },
+    safe4_p: { no: `Filer programmet ikke klarer å plassere trygt. Undersøk i Utforsker før du bestemmer deg.`, en: `Files the program can't classify safely. Investigate in Explorer before deciding.` },
+    dl_kicker: { no: `Last ned`, en: `Download` },
+    dl_h2: { no: `Velg din versjon.`, en: `Choose your version.` },
+    dl_lede: { no: `Begge kjører på Windows 10 og 11 (64-bit) uten at .NET må installeres.`, en: `Both run on Windows 10 and 11 (64-bit) with no .NET install required.` },
+    dl_badge: { no: `Anbefalt`, en: `Recommended` },
+    dl1_h3: { no: `Installer`, en: `Installer` },
+    dl1_li1: { no: `Snarvei i Start-menyen`, en: `Start menu shortcut` },
+    dl1_li2: { no: `Enkel avinstallering`, en: `Easy uninstall` },
+    dl1_li3: { no: `Installerer som et vanlig program`, en: `Installs as a normal program` },
+    dl1_btn: { no: `↓ Last ned installer`, en: `↓ Download installer` },
+    dl2_h3: { no: `Portabel`, en: `Portable` },
+    dl2_li1: { no: `Ingen installasjon`, en: `No installation` },
+    dl2_li2: { no: `Kjør fra minnepenn`, en: `Run from a USB stick` },
+    dl2_li3: { no: `Bare dobbeltklikk`, en: `Just double-click` },
+    dl2_btn: { no: `↓ Last ned portabel`, en: `↓ Download portable` },
+    donate_h2: { no: `Liker du Byteroom?`, en: `Do you like Byteroom?` },
+    donate_lede: { no: `Programmet er gratis. Vil du takke for jobben, setter jeg stor pris på en liten donasjon — den holder prosjektet i live.`, en: `The app is free. If you'd like to say thanks, a small donation is hugely appreciated — it keeps the project alive.` },
+    donate_btn: { no: `Spander en kaffe ☕`, en: `Buy me a coffee ☕` },
+    foot_made: { no: `Byteroom · v1.0.0 · Laget for Windows`, en: `Byteroom · v1.0.0 · Made for Windows` },
+    foot_download: { no: `Last ned`, en: `Download` },
+    foot_donate: { no: `Doner`, en: `Donate` },
+  };
+
+  function applyLang(lang) {
+    if (lang !== 'no' && lang !== 'en') lang = 'en';
+    document.documentElement.lang = lang;
+    if (I18N.title) document.title = I18N.title[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var e = I18N[el.getAttribute('data-i18n')];
+      if (e) el.textContent = e[lang];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var e = I18N[el.getAttribute('data-i18n-html')];
+      if (e) el.innerHTML = e[lang];
+    });
+    document.querySelectorAll('[data-lang-label]').forEach(function (el) {
+      el.textContent = (lang === 'no') ? 'EN' : 'NO';
+    });
+    try { localStorage.setItem('byteroom_lang', lang); } catch (e) {}
+  }
+
+  function toggleLang() {
+    applyLang(document.documentElement.lang === 'no' ? 'en' : 'no');
+  }
+
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('byteroom_lang'); } catch (e) {}
+    var nav = (navigator.language || 'en').toLowerCase();
+    var initial = saved || (nav.charAt(0) === 'n' ? 'no' : 'en');
+    applyLang(initial);
+  })();
+</script>
