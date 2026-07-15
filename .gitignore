@@ -1,0 +1,12 @@
+# Bygg-output
+bin/
+obj/
+dist/
+
+# Verktøy/IDE
+.vs/
+*.user
+
+# OS
+Thumbs.db
+Desktop.ini

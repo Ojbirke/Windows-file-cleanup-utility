@@ -1,0 +1,405 @@
+<!--
+  Store Filer – landingsside
+  ────────────────────────────────────────────────────────────
+  BYTT UT disse plassholderne før publisering (søk etter DITTNAVN):
+    • PayPal:  https://www.paypal.me/DITTNAVN
+    • GitHub:  https://github.com/Ojbirke/Windows-file-cleanup-utility
+  Nedlastingsknappene peker på GitHub Releases – last opp
+  StoreFiler-Setup-1.0.0.exe og StoreFiler.exe til en Release der.
+-->
+<title>Store Filer — finn og frigjør plass på PC-en</title>
+
+<style>
+  :root {
+    --bg: #0e1420;
+    --panel: #161e2e;
+    --panel-2: #1d2739;
+    --line: #2a3750;
+    --ink: #e8edf5;
+    --muted: #93a1ba;
+    --faint: #64728c;
+    --accent: #3b9eff;
+    --accent-ink: #0a1524;
+    --safe: #3dd68c;
+    --warn: #f5b544;
+    --danger: #f26d6d;
+    --unknown: #8595ad;
+    --radius: 14px;
+    --maxw: 1080px;
+    --mono: "Cascadia Code", "Cascadia Mono", Consolas, "SF Mono", ui-monospace, monospace;
+    --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --shadow: 0 24px 60px -20px rgba(0,0,0,.6);
+  }
+  :root[data-theme="light"], :root:not([data-theme="dark"]) {
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #eef2f8;
+      --panel: #ffffff;
+      --panel-2: #f4f7fc;
+      --line: #dbe3ef;
+      --ink: #16202f;
+      --muted: #4f5d75;
+      --faint: #8290a8;
+      --accent: #0067c0;
+      --accent-ink: #ffffff;
+      --safe: #1b8a3a;
+      --warn: #b8860b;
+      --danger: #c62828;
+      --unknown: #6b7688;
+      --shadow: 0 24px 50px -24px rgba(20,40,80,.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #eef2f8; --panel: #ffffff; --panel-2: #f4f7fc; --line: #dbe3ef;
+    --ink: #16202f; --muted: #4f5d75; --faint: #8290a8;
+    --accent: #0067c0; --accent-ink: #ffffff;
+    --safe: #1b8a3a; --warn: #b8860b; --danger: #c62828; --unknown: #6b7688;
+    --shadow: 0 24px 50px -24px rgba(20,40,80,.35);
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1420; --panel: #161e2e; --panel-2: #1d2739; --line: #2a3750;
+    --ink: #e8edf5; --muted: #93a1ba; --faint: #64728c;
+    --accent: #3b9eff; --accent-ink: #0a1524;
+    --safe: #3dd68c; --warn: #f5b544; --danger: #f26d6d; --unknown: #8595ad;
+    --shadow: 0 24px 60px -20px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+  a { color: inherit; }
+
+  /* subtil rutenett-bakgrunn øverst, som en disk-flate */
+  .top {
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(1200px 500px at 70% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%);
+  }
+  .top::before {
+    content: ""; position: absolute; inset: 0; opacity: .5;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 34px 34px;
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent 70%);
+            mask-image: linear-gradient(to bottom, black, transparent 70%);
+  }
+
+  nav {
+    position: relative; display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 0;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: -.01em; }
+  .logo {
+    width: 38px; height: 38px; border-radius: 10px; flex: none;
+    background: linear-gradient(140deg, #0a7bd6, #004e96);
+    display: grid; place-items: center; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+  }
+  .logo svg { width: 22px; height: 22px; }
+  .nav-links { display: flex; gap: 22px; align-items: center; font-size: .95rem; color: var(--muted); }
+  .nav-links a { text-decoration: none; }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero { position: relative; display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding: 56px 0 72px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px;
+    background: var(--panel);
+  }
+  h1 {
+    font-size: clamp(2.5rem, 5.6vw, 4.1rem); line-height: 1.02; letter-spacing: -.03em;
+    margin: 20px 0 16px; text-wrap: balance; font-weight: 800;
+  }
+  h1 .hl { color: var(--accent); }
+  .lede { font-size: 1.18rem; color: var(--muted); max-width: 46ch; margin: 0 0 28px; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+    padding: 14px 22px; border-radius: 11px; font-weight: 650; font-size: 1rem;
+    border: 1px solid transparent; cursor: pointer; transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--accent) 70%, transparent); }
+  .btn-ghost { background: var(--panel); color: var(--ink); border-color: var(--line); }
+  .btn small { font-weight: 400; opacity: .8; font-family: var(--mono); font-size: .78rem; }
+  .req { margin-top: 16px; font-size: .86rem; color: var(--faint); font-family: var(--mono); }
+
+  /* App-vindu-mockup */
+  .window {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .titlebar { display: flex; align-items: center; gap: 8px; padding: 11px 14px; background: var(--panel-2); border-bottom: 1px solid var(--line); }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .tb-title { margin-left: 10px; font-size: .82rem; color: var(--muted); font-family: var(--mono); }
+  .toolbar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: .8rem; color: var(--faint); }
+  .scanbar { flex: 1; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--accent) 20%, transparent); overflow: hidden; position: relative; }
+  .scanbar::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 38%; border-radius: 3px;
+    background: var(--accent); animation: scan 1.8s ease-in-out infinite;
+  }
+  @keyframes scan { 0% { left: -40%; } 100% { left: 102%; } }
+
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
+  th { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); font-weight: 600; }
+  td.size { font-family: var(--mono); text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  .safety { display: inline-block; width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(0,0,0,.25) inset; }
+  .s-safe { background: var(--safe); box-shadow: 0 0 10px color-mix(in srgb, var(--safe) 60%, transparent); }
+  .s-warn { background: var(--warn); }
+  .s-danger { background: var(--danger); }
+  .fname { color: var(--ink); }
+  .fname .path { color: var(--faint); }
+
+  /* SECTIONS */
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  .kicker { font-family: var(--mono); font-size: .8rem; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin: 0 0 12px; }
+  h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); letter-spacing: -.02em; margin: 0 0 14px; text-wrap: balance; font-weight: 750; }
+  .section-lede { color: var(--muted); max-width: 60ch; font-size: 1.08rem; margin: 0 0 40px; }
+
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .card .ico { width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; margin-bottom: 16px; background: var(--panel-2); border: 1px solid var(--line); }
+  .card h3 { margin: 0 0 8px; font-size: 1.12rem; letter-spacing: -.01em; }
+  .card p { margin: 0; color: var(--muted); font-size: .96rem; }
+
+  /* Sikkerhet / trafikklys */
+  .safety-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
+  .tl { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; position: relative; overflow: hidden; }
+  .tl::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+  .tl.safe::before { background: var(--safe); }
+  .tl.warn::before { background: var(--warn); }
+  .tl.danger::before { background: var(--danger); }
+  .tl.unknown::before { background: var(--unknown); }
+  .tl .lbl { display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 8px; }
+  .tl .lbl .safety { width: 13px; height: 13px; }
+  .tl p { margin: 0; color: var(--muted); font-size: .92rem; }
+
+  /* DOWNLOAD */
+  #last { text-align: center; }
+  .dl-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 760px; margin: 8px auto 0; text-align: left; }
+  .dl {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px;
+    display: flex; flex-direction: column; gap: 6px; position: relative;
+  }
+  .dl.reco { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent); }
+  .badge { position: absolute; top: -11px; left: 28px; background: var(--accent); color: var(--accent-ink); font-size: .72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; letter-spacing: .02em; }
+  .dl h3 { margin: 6px 0 2px; font-size: 1.25rem; }
+  .dl .meta { font-family: var(--mono); font-size: .8rem; color: var(--faint); margin-bottom: 14px; }
+  .dl ul { margin: 0 0 20px; padding-left: 18px; color: var(--muted); font-size: .94rem; }
+  .dl ul li { margin: 4px 0; }
+  .dl .btn { justify-content: center; margin-top: auto; }
+
+  /* DONATE */
+  .donate { text-align: center; }
+  .heart-wrap { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: color-mix(in srgb, var(--danger) 18%, transparent); margin-bottom: 8px; }
+  .donate h2 { margin-top: 8px; }
+  .btn-donate { background: var(--danger); color: #fff; }
+
+  footer { padding: 40px 0 56px; color: var(--faint); font-size: .9rem; }
+  .foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; }
+  .foot-links { display: flex; gap: 20px; }
+  .foot-links a { text-decoration: none; color: var(--muted); }
+  .foot-links a:hover { color: var(--ink); }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; padding: 36px 0 52px; }
+    .features, .safety-grid { grid-template-columns: 1fr 1fr; }
+    .dl-cards { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 520px) {
+    .features, .safety-grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scanbar::after { animation: none; left: 0; width: 60%; }
+    .btn:hover { transform: none; }
+  }
+</style>
+
+<div class="top">
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <span class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round">
+            <circle cx="10" cy="10" r="6.2"></circle><line x1="15" y1="15" x2="20" y2="20"></line>
+          </svg>
+        </span>
+        Store Filer
+      </div>
+      <div class="nav-links">
+        <a href="#funksjoner">Funksjoner</a>
+        <a href="#sikkerhet">Sikkerhet</a>
+        <a href="#last">Last ned</a>
+        <a href="https://github.com/Ojbirke/Windows-file-cleanup-utility">GitHub</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div>
+        <span class="eyebrow">Windows 10 &amp; 11 · Gratis</span>
+        <h1>Finn de <span class="hl">store filene</span> som spiser opp disken din.</h1>
+        <p class="lede">Skann en mappe eller hele disken, se de største filene øverst, og få vite hvilke som er <strong>trygge å slette</strong> — alt med utseende og følelse som Utforskeren.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/StoreFiler-Setup-1.0.0.exe">
+            ↓ Last ned for Windows <small>Setup · 66 MB</small>
+          </a>
+          <a class="btn btn-ghost" href="#last">Andre nedlastinger</a>
+        </div>
+        <p class="req">Ingen .NET nødvendig · 64-bit · Sletter til papirkurven</p>
+      </div>
+
+      <div class="window" aria-hidden="true">
+        <div class="titlebar">
+          <span class="dot" style="background:#f26d6d"></span>
+          <span class="dot" style="background:#f5b544"></span>
+          <span class="dot" style="background:#3dd68c"></span>
+          <span class="tb-title">Store Filer — C:\</span>
+        </div>
+        <div class="toolbar">
+          <span>🔍 Skanner…</span>
+          <span class="scanbar"></span>
+          <span>1 284 mapper</span>
+        </div>
+        <table>
+          <thead><tr><th style="width:26px"></th><th>Navn</th><th style="text-align:right">Størrelse</th></tr></thead>
+          <tbody>
+            <tr><td><span class="safety s-safe"></span></td><td class="fname">Log (old 8).txt</td><td class="size">210.1 GB</td></tr>
+            <tr><td><span class="safety s-warn"></span></td><td class="fname">Ubuntu.vhdx</td><td class="size">12.8 GB</td></tr>
+            <tr><td><span class="safety s-safe"></span></td><td class="fname">BDC1C_2_Logs.zip</td><td class="size">1.8 GB</td></tr>
+            <tr><td><span class="safety s-safe"></span></td><td class="fname">WriteCommand.log</td><td class="size">162.5 MB</td></tr>
+            <tr><td><span class="safety s-warn"></span></td><td class="fname">radiation.wmv</td><td class="size">510.5 MB</td></tr>
+            <tr><td><span class="safety s-danger"></span></td><td class="fname">d3d11.dll <span class="path">· Program Files</span></td><td class="size">104.3 MB</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </header>
+  </div>
+</div>
+
+<section id="funksjoner">
+  <div class="wrap">
+    <p class="kicker">Hva det gjør</p>
+    <h2>Rydd opp uten å gjette.</h2>
+    <p class="section-lede">Store Filer graver gjennom disken, sorterer alt etter størrelse og forteller deg hva hver fil faktisk er — så du frigjør plass med selvtillit.</p>
+    <div class="features">
+      <div class="card">
+        <div class="ico">📊</div>
+        <h3>Største først</h3>
+        <p>Rekursiv skann av en mappe eller hel disk, sortert så plassgrisene ligger øverst. Lever fremdrift underveis — mapper, filer og gigabyte i sanntid.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🚦</div>
+        <h3>Fargekodet trygghet</h3>
+        <p>Grønn, gul eller rød prikk på hver fil. Kjenner igjen apper som Zwift og Steam, cache, logger, systemfiler og dine egne dokumenter.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🔬</div>
+        <h3>Analyse per fil</h3>
+        <p>Klikk en fil og se hva den er, hvilket program den hører til og en anbefaling om det er trygt å slette — alt lokalt, ingen data forlater PC-en.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🗑️</div>
+        <h3>Trygg sletting</h3>
+        <p>Alt går til papirkurven, aldri rett i søpla. Angre når som helst. Ledig diskplass oppdateres med én gang.</p>
+      </div>
+      <div class="card">
+        <div class="ico">⚡</div>
+        <h3>Hurtigfilter</h3>
+        <p>Vis «bare trygge» med ett klikk, eller filtrer på størrelse. Samle alt det grønne øverst og slett i bulk.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🪟</div>
+        <h3>Kjent grensesnitt</h3>
+        <p>Ser ut og føles som Utforskeren — diskliste med ledig plass, sorterbare kolonner, høyreklikk-meny. Ingen læringskurve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sikkerhet">
+  <div class="wrap">
+    <p class="kicker">Trafikklyset</p>
+    <h2>Fire farger. Null gjetting.</h2>
+    <p class="section-lede">Hver fil får en vurdering ut fra hvor den ligger og hva den er. Vurderingen er en lokal beste-gjetning — du bestemmer alltid selv.</p>
+    <div class="safety-grid">
+      <div class="tl safe">
+        <div class="lbl"><span class="safety s-safe"></span> Trygg å slette</div>
+        <p>Cache, midlertidige filer, logger, krasjdumper og ferdige installasjonsfiler. Bygges opp igjen ved behov.</p>
+      </div>
+      <div class="tl warn">
+        <div class="lbl"><span class="safety s-warn"></span> Vær forsiktig</div>
+        <p>Dine dokumenter, bilder, video, arkiver og skyfiler. Sjekk at du ikke trenger innholdet før du sletter.</p>
+      </div>
+      <div class="tl danger">
+        <div class="lbl"><span class="safety s-danger"></span> Bør ikke slettes</div>
+        <p>Windows-systemfiler og filer inne i installerte programmer. Avinstaller heller hele programmet.</p>
+      </div>
+      <div class="tl unknown">
+        <div class="lbl"><span class="safety" style="background:var(--unknown)"></span> Usikker</div>
+        <p>Filer programmet ikke klarer å plassere trygt. Undersøk i Utforsker før du bestemmer deg.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="last">
+  <div class="wrap">
+    <p class="kicker">Last ned</p>
+    <h2>Velg din versjon.</h2>
+    <p class="section-lede" style="margin-inline:auto">Begge kjører på Windows 10 og 11 (64-bit) uten at .NET må installeres.</p>
+    <div class="dl-cards">
+      <div class="dl reco">
+        <span class="badge">Anbefalt</span>
+        <h3>Installer</h3>
+        <div class="meta">StoreFiler-Setup-1.0.0.exe · 66 MB</div>
+        <ul>
+          <li>Snarvei i Start-menyen</li>
+          <li>Enkel avinstallering</li>
+          <li>Installerer som et vanlig program</li>
+        </ul>
+        <a class="btn btn-primary" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/StoreFiler-Setup-1.0.0.exe">↓ Last ned installer</a>
+      </div>
+      <div class="dl">
+        <h3>Portabel</h3>
+        <div class="meta">StoreFiler.exe · 71 MB</div>
+        <ul>
+          <li>Ingen installasjon</li>
+          <li>Kjør fra minnepenn</li>
+          <li>Bare dobbeltklikk</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/StoreFiler.exe">↓ Last ned portabel</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="donate">
+  <div class="wrap">
+    <div class="heart-wrap"><span style="font-size:26px">❤</span></div>
+    <h2>Liker du Store Filer?</h2>
+    <p class="section-lede" style="margin-inline:auto">Programmet er gratis. Vil du takke for jobben, setter jeg stor pris på en liten donasjon — den holder prosjektet i live.</p>
+    <a class="btn btn-donate" href="https://www.paypal.me/DITTNAVN">Spander en kaffe ☕</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div>Store Filer · v1.0.0 · Laget for Windows</div>
+    <div class="foot-links">
+      <a href="#last">Last ned</a>
+      <a href="https://github.com/Ojbirke/Windows-file-cleanup-utility">GitHub</a>
+      <a href="https://www.paypal.me/DITTNAVN">Doner</a>
+    </div>
+  </div>
+</footer>
