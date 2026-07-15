@@ -1,12 +1,12 @@
-; Inno Setup-skript for Store Filer
+; Inno Setup-skript for Byteroom
 ; Bygger en Setup.exe som installerer den selvstendige (portable) exe-en –
 ; sluttbrukeren trenger IKKE ha .NET installert.
 
-#define MyAppName "Store Filer"
+#define MyAppName "Byteroom"
 #define MyAppVersion "1.0.0"
-#define MyAppPublisher "Store Filer"
+#define MyAppPublisher "Byteroom"
 #define MyAppURL "https://github.com/Ojbirke/Windows-file-cleanup-utility"
-#define MyAppExeName "StoreFiler.exe"
+#define MyAppExeName "Byteroom.exe"
 
 [Setup]
 AppId={{2C539D19-EAEC-44FE-9324-CE04FFAE9A5C}
@@ -20,7 +20,7 @@ DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=dist
-OutputBaseFilename=StoreFiler-Setup-{#MyAppVersion}
+OutputBaseFilename=Byteroom-Setup-{#MyAppVersion}
 SetupIconFile=icon.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma2/max

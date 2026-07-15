@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace StoreFiler;
+namespace Byteroom;
 
 /// <summary>Sletting til papirkurv via Windows Shell (SHFileOperation).</summary>
 internal static class NativeMethods

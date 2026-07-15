@@ -1,8 +1,8 @@
-<Window x:Class="StoreFiler.MainWindow"
+<Window x:Class="Byteroom.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:StoreFiler"
-        Title="Store Filer — finn og frigjør plass" Height="720" Width="1120"
+        xmlns:local="clr-namespace:Byteroom"
+        Title="Byteroom — finn og frigjør plass" Height="720" Width="1120"
         WindowStartupLocation="CenterScreen" Background="White" Icon="icon.ico">
 
     <Window.Resources>

@@ -7,12 +7,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyName>StoreFiler</AssemblyName>
+    <AssemblyName>Byteroom</AssemblyName>
+    <RootNamespace>Byteroom</RootNamespace>
     <Version>1.0.0</Version>
     <ApplicationIcon>icon.ico</ApplicationIcon>
-    <Product>Store Filer</Product>
-    <AssemblyTitle>Store Filer — finn og frigjør plass</AssemblyTitle>
-    <Company>Store Filer</Company>
+    <Product>Byteroom</Product>
+    <AssemblyTitle>Byteroom — finn og frigjør plass</AssemblyTitle>
+    <Company>Byteroom</Company>
     <Description>Finn store filer du kan slette for å frigjøre plass på PC-en.</Description>
   </PropertyGroup>
 

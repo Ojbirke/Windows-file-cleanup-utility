@@ -4,7 +4,7 @@ using Brush = System.Windows.Media.Brush;
 using Brushes = System.Windows.Media.Brushes;
 using BrushConverter = System.Windows.Media.BrushConverter;
 
-namespace StoreFiler;
+namespace Byteroom;
 
 /// <summary>Gjør en hex-fargestreng ("#1B8A3A") om til en SolidColorBrush.</summary>
 public class HexBrushConverter : IValueConverter

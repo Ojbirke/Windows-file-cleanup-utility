@@ -1,4 +1,4 @@
-namespace StoreFiler;
+namespace Byteroom;
 
 /// <summary>
 /// Interaction logic for App.xaml

@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace StoreFiler;
+namespace Byteroom;
 
 public enum Safety { Safe, Caution, Unsafe, Unknown }
 

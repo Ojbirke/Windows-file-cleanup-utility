@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace StoreFiler;
+namespace Byteroom;
 
 /// <summary>En fil funnet under skanning, med rådata for sortering.</summary>
 public class FileItem

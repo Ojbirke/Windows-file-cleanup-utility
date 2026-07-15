@@ -8,7 +8,7 @@ using System.Windows.Data;
 using MessageBox = System.Windows.MessageBox;
 using Clipboard = System.Windows.Clipboard;
 
-namespace StoreFiler;
+namespace Byteroom;
 
 public partial class MainWindow : Window
 {

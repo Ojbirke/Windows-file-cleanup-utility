@@ -1,4 +1,4 @@
-# Store Filer — dele og publisere
+# Byteroom — dele og publisere
 
 Alt er bygget. Her er hva som finnes, hva du må fylle inn, og hvordan du legger det ut.
 
@@ -6,8 +6,8 @@ Alt er bygget. Her er hva som finnes, hva du må fylle inn, og hvordan du legger
 
 | Fil | Sti | Størrelse |
 |-----|-----|-----------|
-| **Installer** | `dist\StoreFiler-Setup-1.0.0.exe` | 66 MB |
-| **Portabel exe** | `bin\Release\net9.0-windows\win-x64\publish\StoreFiler.exe` | 71 MB |
+| **Installer** | `dist\Byteroom-Setup-1.0.0.exe` | 66 MB |
+| **Portabel exe** | `bin\Release\net9.0-windows\win-x64\publish\Byteroom.exe` | 71 MB |
 | **Nedlastingsside** | `landing\index.html` | — |
 
 Begge exe-ene kjører på Windows 10/11 (64-bit) **uten** at .NET er installert.
@@ -46,7 +46,7 @@ dotnet publish -c Release -r win-x64 --self-contained true `
 2. Push kildekoden (valgfritt, men fint hvis du vil dele koden).
 3. Lag en **Release** (Releases → Draft a new release), tag `v1.0.0`.
 4. Last opp begge filene som «assets»:
-   - `StoreFiler-Setup-1.0.0.exe`
+   - `Byteroom-Setup-1.0.0.exe`
    - `StoreFiler.exe`
    Da fungerer nedlastingsknappene på siden automatisk (de peker på
    `releases/latest/download/...`).

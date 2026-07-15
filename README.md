@@ -1,4 +1,4 @@
-# Store Filer 🔍
+# Byteroom 🔍
 
 Et Windows-verktøy som ser ut som Utforskeren, men som hjelper deg å finne
 **store filer du kan slette** for å frigjøre plass på PC-en.
@@ -18,8 +18,8 @@ Et Windows-verktøy som ser ut som Utforskeren, men som hjelper deg å finne
 
 Se [Releases](https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest):
 
-- **Installer** (`StoreFiler-Setup-1.0.0.exe`) — installerer som et vanlig program.
-- **Portabel** (`StoreFiler.exe`) — ingen installasjon, bare dobbeltklikk.
+- **Installer** (`Byteroom-Setup-1.0.0.exe`) — installerer som et vanlig program.
+- **Portabel** (`Byteroom.exe`) — ingen installasjon, bare dobbeltklikk.
 
 Begge kjører på Windows 10/11 (64-bit) uten at .NET må installeres.
 

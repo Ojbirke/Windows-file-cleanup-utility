@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace StoreFiler;
+namespace Byteroom;
 
 /// <summary>Gjør om et antall bytes (long) til lesbar tekst, f.eks. "1,4 GB".</summary>
 public class SizeConverter : IValueConverter

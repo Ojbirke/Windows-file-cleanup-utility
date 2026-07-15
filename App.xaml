@@ -1,7 +1,7 @@
-<Application x:Class="StoreFiler.App"
+<Application x:Class="Byteroom.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:StoreFiler"
+             xmlns:local="clr-namespace:Byteroom"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <SolidColorBrush x:Key="ChromeBrush" Color="#F3F3F3"/>
