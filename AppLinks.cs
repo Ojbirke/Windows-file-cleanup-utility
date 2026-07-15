@@ -10,7 +10,7 @@ public static class AppLinks
 {
     public const string Donation = "https://www.paypal.me/ojbirke";
 
-    public const string Website = "https://github.com/Ojbirke/Windows-file-cleanup-utility";
+    public const string Website = "https://byteroom.org";
 
     public const string AppName = "Byteroom";
     public const string Version = "1.0.0";

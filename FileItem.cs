@@ -15,7 +15,9 @@ public class FileItem
     /// <summary>Lokal trygghetsanalyse, fylt inn under skanning.</summary>
     public AnalysisResult? Analysis { get; set; }
 
-    public string TypeDisplay => string.IsNullOrEmpty(Extension) ? "Fil" : Extension.TrimStart('.').ToUpperInvariant() + "-fil";
+    public string TypeDisplay => string.IsNullOrEmpty(Extension)
+        ? Loc.T("Type_File")
+        : string.Format(Loc.T("Type_Suffix"), Extension.TrimStart('.').ToUpperInvariant());
 
     public static FileItem FromInfo(FileInfo fi) => new()
     {

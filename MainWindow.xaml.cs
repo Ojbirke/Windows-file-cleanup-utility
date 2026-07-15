@@ -38,9 +38,9 @@ public partial class MainWindow : Window
             {
                 long total = d.TotalSize, free = d.TotalFreeSpace;
                 double used = total > 0 ? (total - free) * 100.0 / total : 0;
-                string name = string.IsNullOrWhiteSpace(d.VolumeLabel) ? "Lokal disk" : d.VolumeLabel;
+                string name = string.IsNullOrWhiteSpace(d.VolumeLabel) ? Loc.T("Drive_LocalDisk") : d.VolumeLabel;
                 string label = $"{name} ({d.Name.TrimEnd('\\')})";
-                string freeText = $"{SizeConverter.Format(free)} ledig av {SizeConverter.Format(total)}";
+                string freeText = string.Format(Loc.T("Drive_Free"), SizeConverter.Format(free), SizeConverter.Format(total));
                 entries.Add(new DriveEntry(d.RootDirectory.FullName, label, used, freeText));
             }
             catch { /* hopp over disker vi ikke får lest */ }
@@ -60,7 +60,7 @@ public partial class MainWindow : Window
     {
         var dlg = new System.Windows.Forms.FolderBrowserDialog
         {
-            Description = "Velg mappe eller disk som skal skannes",
+            Description = Loc.T("Browse_Desc"),
             UseDescriptionForTitle = true,
         };
         if (!string.IsNullOrWhiteSpace(PathBox.Text) && Directory.Exists(PathBox.Text))
@@ -83,7 +83,7 @@ public partial class MainWindow : Window
         string root = PathBox.Text.Trim();
         if (string.IsNullOrEmpty(root) || !Directory.Exists(root))
         {
-            MessageBox.Show(this, "Velg en gyldig mappe eller disk å skanne.", "Store Filer",
+            MessageBox.Show(this, Loc.T("Dlg_InvalidPath_Msg"), AppLinks.AppName,
                 MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
@@ -99,7 +99,8 @@ public partial class MainWindow : Window
 
         var progress = new Progress<(int folders, int matches, long bytes, string current)>(p =>
         {
-            ScanStats.Text = $"Skanner… {p.folders:N0} mapper gjennomsøkt · {p.matches:N0} store filer funnet · {SizeConverter.Format(p.bytes)}";
+            ScanStats.Text = string.Format(Loc.T("Scan_Progress"),
+                p.folders.ToString("N0"), p.matches.ToString("N0"), SizeConverter.Format(p.bytes));
             ScanCurrent.Text = p.current;
         });
         var reporter = (IProgress<(int, int, long, string)>)progress;
@@ -164,15 +165,19 @@ public partial class MainWindow : Window
 
             SortGridBySize();
             ApplyFilter();
+            string secs = sw.Elapsed.TotalSeconds.ToString("0.0");
             if (found.Count == 0)
             {
-                string limit = SelectedMinBytes() > 0 ? $" over {SizeConverter.Format(SelectedMinBytes())}" : "";
-                StatusText.Text = $"Ferdig på {sw.Elapsed.TotalSeconds:0.0} s — ingen filer{limit} her. Prøv en lavere «Minst»-verdi.";
+                StatusText.Text = SelectedMinBytes() > 0
+                    ? string.Format(Loc.T("Done_Empty_Limited"), secs, SizeConverter.Format(SelectedMinBytes()))
+                    : string.Format(Loc.T("Done_Empty"), secs);
             }
             else
             {
-                string shown = found.Count > MaxRows ? $"Viser de {MaxRows} største av {found.Count:N0}" : $"{found.Count:N0} filer";
-                StatusText.Text = $"Ferdig på {sw.Elapsed.TotalSeconds:0.0} s — {shown}, til sammen {SizeConverter.Format(totalBytes)}.";
+                string shown = found.Count > MaxRows
+                    ? string.Format(Loc.T("Shown_Top"), MaxRows.ToString("N0"), found.Count.ToString("N0"))
+                    : string.Format(Loc.T("Shown_Count"), found.Count.ToString("N0"));
+                StatusText.Text = string.Format(Loc.T("Done"), secs, shown, SizeConverter.Format(totalBytes));
             }
         }
         catch (OperationCanceledException)
@@ -182,7 +187,7 @@ public partial class MainWindow : Window
                 _items.Add(f);
             SortGridBySize();
             ApplyFilter();
-            StatusText.Text = $"Stoppet — {_items.Count:N0} filer vist, til sammen {SizeConverter.Format(totalBytes)}.";
+            StatusText.Text = string.Format(Loc.T("Stopped"), _items.Count.ToString("N0"), SizeConverter.Format(totalBytes));
         }
         finally
         {
@@ -209,7 +214,7 @@ public partial class MainWindow : Window
         ScanBanner.Visibility = on ? Visibility.Visible : Visibility.Collapsed;
         if (on)
         {
-            ScanStats.Text = "Skanner… starter opp";
+            ScanStats.Text = Loc.T("Scan_Starting");
             ScanCurrent.Text = "";
         }
     }
@@ -267,8 +272,8 @@ public partial class MainWindow : Window
         if (_items.Count == 0) { CountLabel.Text = ""; return; }
         int shown = _filter is null ? _items.Count : _items.Count(f => f.Analysis?.Safety == _filter);
         CountLabel.Text = shown == _items.Count
-            ? $"{_items.Count:N0} filer"
-            : $"Viser {shown:N0} av {_items.Count:N0} filer";
+            ? string.Format(Loc.T("Count_Files"), _items.Count.ToString("N0"))
+            : string.Format(Loc.T("Count_Showing"), shown.ToString("N0"), _items.Count.ToString("N0"));
     }
 
     // ---- Analyse / detaljpanel ----
@@ -281,7 +286,7 @@ public partial class MainWindow : Window
         if (Grid.SelectedItem is FileItem f)
             ShowAnalysis(f);
         else
-            MessageBox.Show(this, "Velg en fil i lista først, så analyserer jeg den.", "Analyser",
+            MessageBox.Show(this, Loc.T("Dlg_Analyze_Msg"), Loc.T("Dlg_Analyze_Title"),
                 MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
@@ -335,10 +340,10 @@ public partial class MainWindow : Window
 
         long total = sel.Sum(f => f.Size);
         string msg = sel.Count == 1
-            ? $"Slett denne fila til papirkurven?\n\n{sel[0].Name}\n{SizeConverter.Format(sel[0].Size)}"
-            : $"Slett {sel.Count} filer til papirkurven?\n\nFrigjør {SizeConverter.Format(total)}.";
+            ? string.Format(Loc.T("Dlg_Delete_One"), sel[0].Name, SizeConverter.Format(sel[0].Size))
+            : string.Format(Loc.T("Dlg_Delete_Many"), sel.Count, SizeConverter.Format(total));
 
-        if (MessageBox.Show(this, msg, "Bekreft sletting", MessageBoxButton.YesNo,
+        if (MessageBox.Show(this, msg, Loc.T("Dlg_Delete_Title"), MessageBoxButton.YesNo,
                 MessageBoxImage.Warning, MessageBoxResult.No) != MessageBoxResult.Yes)
             return;
 
@@ -357,7 +362,19 @@ public partial class MainWindow : Window
 
         LoadDrives();
         StatusText.Text = ok
-            ? $"Slettet til papirkurv — frigjorde {SizeConverter.Format(freed)}."
-            : "Sletting ble avbrutt eller delvis fullført.";
+            ? string.Format(Loc.T("Deleted"), SizeConverter.Format(freed))
+            : Loc.T("Delete_Partial");
+    }
+
+    // ---- Språk ----
+
+    private void OnToggleLang(object sender, RoutedEventArgs e)
+    {
+        Loc.I.Toggle();
+        // Oppdater ting som ikke er bundet direkte til Loc:
+        LoadDrives();                       // "ledig av" / "Local disk"
+        Grid.Items.Refresh();               // Type-kolonne + trygghets-tooltip
+        UpdateCountLabel();                 // teller-tekst
+        if (Grid.SelectedItem is FileItem f) ShowAnalysis(f);   // detaljpanel
     }
 }

@@ -14,27 +14,35 @@
         <!-- Verktøylinje øverst -->
         <Border DockPanel.Dock="Top" Background="{StaticResource ChromeBrush}"
                 BorderBrush="{StaticResource EdgeBrush}" BorderThickness="0,0,0,1" Padding="10,8">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Mappe:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="{StaticResource SubtleText}"/>
-                <TextBox x:Name="PathBox" Width="380" Height="30" VerticalContentAlignment="Center"
-                         Padding="6,0" BorderBrush="{StaticResource EdgeBrush}"/>
-                <Button Content="Bla gjennom…" Click="OnBrowse" Margin="6,0,12,0"/>
+            <DockPanel>
+                <Button x:Name="LangButton" DockPanel.Dock="Right" Click="OnToggleLang" Margin="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🌐" Margin="0,0,6,0"/>
+                        <TextBlock Text="{Binding [SwitchLang], Source={x:Static local:Loc.I}}"/>
+                    </StackPanel>
+                </Button>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding [Toolbar_Folder], Source={x:Static local:Loc.I}}" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="{StaticResource SubtleText}"/>
+                    <TextBox x:Name="PathBox" Width="360" Height="30" VerticalContentAlignment="Center"
+                             Padding="6,0" BorderBrush="{StaticResource EdgeBrush}"/>
+                    <Button Content="{Binding [Btn_Browse], Source={x:Static local:Loc.I}}" Click="OnBrowse" Margin="6,0,12,0"/>
 
-                <TextBlock Text="Minst:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="{StaticResource SubtleText}"/>
-                <ComboBox x:Name="MinSizeBox" Width="110" Height="30" VerticalContentAlignment="Center" SelectedIndex="2">
-                    <ComboBoxItem Tag="0" Content="Alle"/>
-                    <ComboBoxItem Tag="10485760" Content="≥ 10 MB"/>
-                    <ComboBoxItem Tag="52428800" Content="≥ 50 MB"/>
-                    <ComboBoxItem Tag="104857600" Content="≥ 100 MB"/>
-                    <ComboBoxItem Tag="524288000" Content="≥ 500 MB"/>
-                    <ComboBoxItem Tag="1073741824" Content="≥ 1 GB"/>
-                </ComboBox>
+                    <TextBlock Text="{Binding [Toolbar_Min], Source={x:Static local:Loc.I}}" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="{StaticResource SubtleText}"/>
+                    <ComboBox x:Name="MinSizeBox" Width="110" Height="30" VerticalContentAlignment="Center" SelectedIndex="2">
+                        <ComboBoxItem Tag="0" Content="{Binding [Min_All], Source={x:Static local:Loc.I}}"/>
+                        <ComboBoxItem Tag="10485760" Content="≥ 10 MB"/>
+                        <ComboBoxItem Tag="52428800" Content="≥ 50 MB"/>
+                        <ComboBoxItem Tag="104857600" Content="≥ 100 MB"/>
+                        <ComboBoxItem Tag="524288000" Content="≥ 500 MB"/>
+                        <ComboBoxItem Tag="1073741824" Content="≥ 1 GB"/>
+                    </ComboBox>
 
-                <Button x:Name="ScanButton" Content="🔍  Skann" Click="OnScan" Margin="12,0,0,0"
-                        Background="{StaticResource AccentBrush}" Foreground="White" FontWeight="SemiBold"/>
-                <Button x:Name="StopButton" Content="Stopp" Click="OnStop" IsEnabled="False"/>
-                <Button x:Name="AnalyzeButton" Content="🔬  Analyser" Click="OnAnalyze" Margin="12,0,0,0"/>
-            </StackPanel>
+                    <Button x:Name="ScanButton" Content="{Binding [Btn_Scan], Source={x:Static local:Loc.I}}" Click="OnScan" Margin="12,0,0,0"
+                            Background="{StaticResource AccentBrush}" Foreground="White" FontWeight="SemiBold"/>
+                    <Button x:Name="StopButton" Content="{Binding [Btn_Stop], Source={x:Static local:Loc.I}}" Click="OnStop" IsEnabled="False"/>
+                    <Button x:Name="AnalyzeButton" Content="{Binding [Btn_Analyze], Source={x:Static local:Loc.I}}" Click="OnAnalyze" Margin="12,0,0,0"/>
+                </StackPanel>
+            </DockPanel>
         </Border>
 
         <!-- Fremdriftsbanner (vises kun mens skanning pågår) -->
@@ -43,8 +51,7 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                     <TextBlock Text="⏳" FontSize="14" Margin="0,0,8,0"/>
-                    <TextBlock x:Name="ScanStats" FontWeight="SemiBold" Foreground="#0B4A82"
-                               Text="Skanner…"/>
+                    <TextBlock x:Name="ScanStats" FontWeight="SemiBold" Foreground="#0B4A82"/>
                 </StackPanel>
                 <ProgressBar x:Name="Progress" Height="6" IsIndeterminate="True"
                              Foreground="{StaticResource AccentBrush}" Background="#D5E7F6"
@@ -60,14 +67,15 @@
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center">
-                        <Hyperlink Click="OnOpenWebsite" TextDecorations="{x:Null}" Foreground="{StaticResource SubtleText}">Nettside</Hyperlink>
+                        <Hyperlink Click="OnOpenWebsite" TextDecorations="{x:Null}" Foreground="{StaticResource SubtleText}"><Run Text="{Binding [Link_Website], Source={x:Static local:Loc.I}}"/></Hyperlink>
                     </TextBlock>
                     <TextBlock Text="·" Margin="8,0" Foreground="{StaticResource SubtleText}" VerticalAlignment="Center"/>
                     <TextBlock VerticalAlignment="Center">
-                        <Hyperlink Click="OnDonate" TextDecorations="{x:Null}" Foreground="#C62828">❤ Støtt utvikleren</Hyperlink>
+                        <Hyperlink Click="OnDonate" TextDecorations="{x:Null}" Foreground="#C62828"><Run Text="{Binding [Link_Donate], Source={x:Static local:Loc.I}}"/></Hyperlink>
                     </TextBlock>
                 </StackPanel>
-                <TextBlock x:Name="StatusText" VerticalAlignment="Center" Text="Klar. Velg en mappe eller disk og trykk Skann."/>
+                <TextBlock x:Name="StatusText" VerticalAlignment="Center"
+                           Text="{Binding [Status_Ready], Source={x:Static local:Loc.I}}"/>
             </DockPanel>
         </Border>
 
@@ -84,7 +92,7 @@
             <!-- Diskliste -->
             <Border Grid.Column="0" BorderBrush="{StaticResource EdgeBrush}" BorderThickness="0,0,1,0">
                 <DockPanel>
-                    <TextBlock DockPanel.Dock="Top" Text="Denne PC-en" FontWeight="SemiBold"
+                    <TextBlock DockPanel.Dock="Top" Text="{Binding [ThisPC], Source={x:Static local:Loc.I}}" FontWeight="SemiBold"
                                Margin="12,12,12,6" Foreground="{StaticResource SubtleText}"/>
                     <ListBox x:Name="DriveList" BorderThickness="0" SelectionChanged="OnDriveSelected"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -108,37 +116,37 @@
             <Border DockPanel.Dock="Top" Background="{StaticResource ChromeBrush}"
                     BorderBrush="{StaticResource EdgeBrush}" BorderThickness="0,0,0,1" Padding="10,6">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Vis:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="{StaticResource SubtleText}"/>
+                    <TextBlock Text="{Binding [Filter_Show], Source={x:Static local:Loc.I}}" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="{StaticResource SubtleText}"/>
                     <ComboBox x:Name="FilterBox" Width="190" Height="28" VerticalContentAlignment="Center"
                               SelectedIndex="0" SelectionChanged="OnFilterChanged">
                         <ComboBoxItem Tag="all">
                             <StackPanel Orientation="Horizontal">
                                 <Ellipse Width="11" Height="11" Fill="#BBBBBB" Margin="0,0,7,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Alle filer"/>
+                                <TextBlock Text="{Binding [Filter_All], Source={x:Static local:Loc.I}}"/>
                             </StackPanel>
                         </ComboBoxItem>
                         <ComboBoxItem Tag="Safe">
                             <StackPanel Orientation="Horizontal">
                                 <Ellipse Width="11" Height="11" Fill="#1B8A3A" Margin="0,0,7,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Bare trygge"/>
+                                <TextBlock Text="{Binding [Filter_Safe], Source={x:Static local:Loc.I}}"/>
                             </StackPanel>
                         </ComboBoxItem>
                         <ComboBoxItem Tag="Caution">
                             <StackPanel Orientation="Horizontal">
                                 <Ellipse Width="11" Height="11" Fill="#B8860B" Margin="0,0,7,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Vær forsiktig"/>
+                                <TextBlock Text="{Binding [Filter_Caution], Source={x:Static local:Loc.I}}"/>
                             </StackPanel>
                         </ComboBoxItem>
                         <ComboBoxItem Tag="Unsafe">
                             <StackPanel Orientation="Horizontal">
                                 <Ellipse Width="11" Height="11" Fill="#C62828" Margin="0,0,7,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Bør ikke slettes"/>
+                                <TextBlock Text="{Binding [Filter_Unsafe], Source={x:Static local:Loc.I}}"/>
                             </StackPanel>
                         </ComboBoxItem>
                         <ComboBoxItem Tag="Unknown">
                             <StackPanel Orientation="Horizontal">
                                 <Ellipse Width="11" Height="11" Fill="#757575" Margin="0,0,7,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Usikre"/>
+                                <TextBlock Text="{Binding [Filter_Unknown], Source={x:Static local:Loc.I}}"/>
                             </StackPanel>
                         </ComboBoxItem>
                     </ComboBox>
@@ -153,10 +161,10 @@
                       SelectionChanged="OnGridSelectionChanged">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Åpne mappe i Utforsker" Click="OnOpenInExplorer"/>
-                        <MenuItem Header="Kopier full sti" Click="OnCopyPath"/>
+                        <MenuItem Header="{Binding [Ctx_Open], Source={x:Static local:Loc.I}}" Click="OnOpenInExplorer"/>
+                        <MenuItem Header="{Binding [Ctx_Copy], Source={x:Static local:Loc.I}}" Click="OnCopyPath"/>
                         <Separator/>
-                        <MenuItem Header="Slett til papirkurv" Click="OnDelete"/>
+                        <MenuItem Header="{Binding [Ctx_Delete], Source={x:Static local:Loc.I}}" Click="OnDelete"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>
@@ -170,8 +178,8 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Navn" Binding="{Binding Name}" Width="260"/>
-                    <DataGridTextColumn Header="Størrelse" Binding="{Binding Size, Converter={StaticResource Size}}"
+                    <DataGridTextColumn Header="{Binding [Col_Name], Source={x:Static local:Loc.I}}" Binding="{Binding Name}" Width="260"/>
+                    <DataGridTextColumn Header="{Binding [Col_Size], Source={x:Static local:Loc.I}}" Binding="{Binding Size, Converter={StaticResource Size}}"
                                         SortMemberPath="Size" Width="110">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -180,9 +188,9 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Type" Binding="{Binding TypeDisplay}" Width="90"/>
-                    <DataGridTextColumn Header="Endret" Binding="{Binding Modified, StringFormat=dd.MM.yyyy HH:mm}" Width="130"/>
-                    <DataGridTextColumn Header="Mappe" Binding="{Binding Directory}" Width="*"/>
+                    <DataGridTextColumn Header="{Binding [Col_Type], Source={x:Static local:Loc.I}}" Binding="{Binding TypeDisplay}" Width="90"/>
+                    <DataGridTextColumn Header="{Binding [Col_Modified], Source={x:Static local:Loc.I}}" Binding="{Binding Modified, StringFormat=dd.MM.yyyy HH:mm}" Width="130"/>
+                    <DataGridTextColumn Header="{Binding [Col_Folder], Source={x:Static local:Loc.I}}" Binding="{Binding Directory}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
             </DockPanel>
@@ -193,11 +201,11 @@
             <Border Grid.Column="4" Background="#FAFAFA" BorderBrush="{StaticResource EdgeBrush}" BorderThickness="1,0,0,0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="16,14">
                     <StackPanel>
-                        <TextBlock Text="Analyse" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        <TextBlock Text="{Binding [Detail_Title], Source={x:Static local:Loc.I}}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,10"/>
 
                         <!-- Vises når ingenting er valgt -->
                         <TextBlock x:Name="EmptyHint" Foreground="{StaticResource SubtleText}" TextWrapping="Wrap"
-                                   Text="Velg en fil i lista (eller klikk «Analyser») for å se hva den er og om det er trygt å slette."/>
+                                   Text="{Binding [Detail_Hint], Source={x:Static local:Loc.I}}"/>
 
                         <!-- Vises når en fil er valgt -->
                         <StackPanel x:Name="DetailPanel" Visibility="Collapsed">
@@ -213,35 +221,35 @@
                                 </StackPanel>
                             </Border>
 
-                            <TextBlock Text="Navn" FontSize="11" Foreground="{StaticResource SubtleText}"/>
+                            <TextBlock Text="{Binding [Detail_Name], Source={x:Static local:Loc.I}}" FontSize="11" Foreground="{StaticResource SubtleText}"/>
                             <TextBlock x:Name="DName" TextWrapping="Wrap" Margin="0,0,0,10" FontWeight="SemiBold"/>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                                 <StackPanel Margin="0,0,24,0">
-                                    <TextBlock Text="Størrelse" FontSize="11" Foreground="{StaticResource SubtleText}"/>
+                                    <TextBlock Text="{Binding [Detail_Size], Source={x:Static local:Loc.I}}" FontSize="11" Foreground="{StaticResource SubtleText}"/>
                                     <TextBlock x:Name="DSize" FontWeight="SemiBold"/>
                                 </StackPanel>
                                 <StackPanel>
-                                    <TextBlock Text="Program" FontSize="11" Foreground="{StaticResource SubtleText}"/>
+                                    <TextBlock Text="{Binding [Detail_Program], Source={x:Static local:Loc.I}}" FontSize="11" Foreground="{StaticResource SubtleText}"/>
                                     <TextBlock x:Name="DApp" FontWeight="SemiBold"/>
                                 </StackPanel>
                             </StackPanel>
 
-                            <TextBlock Text="Vurdering" FontSize="11" Foreground="{StaticResource SubtleText}"/>
+                            <TextBlock Text="{Binding [Detail_Assessment], Source={x:Static local:Loc.I}}" FontSize="11" Foreground="{StaticResource SubtleText}"/>
                             <TextBlock x:Name="DExplain" TextWrapping="Wrap" Margin="0,2,0,14" LineHeight="19"/>
 
-                            <TextBlock Text="Plassering" FontSize="11" Foreground="{StaticResource SubtleText}"/>
+                            <TextBlock Text="{Binding [Detail_Location], Source={x:Static local:Loc.I}}" FontSize="11" Foreground="{StaticResource SubtleText}"/>
                             <TextBlock x:Name="DPath" TextWrapping="Wrap" Margin="0,2,0,16"
                                        FontSize="11" Foreground="#555"/>
 
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="📂  Åpne i Utforsker" Click="OnOpenInExplorer"/>
-                                <Button Content="🗑  Slett" Click="OnDelete"/>
+                                <Button Content="{Binding [Detail_Open], Source={x:Static local:Loc.I}}" Click="OnOpenInExplorer"/>
+                                <Button Content="{Binding [Detail_Delete], Source={x:Static local:Loc.I}}" Click="OnDelete"/>
                             </StackPanel>
 
                             <TextBlock Margin="0,14,0,0" FontSize="11" Foreground="{StaticResource SubtleText}"
                                        TextWrapping="Wrap"
-                                       Text="Vurderingen er en lokal beste-gjetning ut fra plassering og filtype — sjekk alltid selv før du sletter noe du er usikker på."/>
+                                       Text="{Binding [Detail_Disclaimer], Source={x:Static local:Loc.I}}"/>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
