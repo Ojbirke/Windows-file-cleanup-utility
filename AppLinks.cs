@@ -13,5 +13,5 @@ public static class AppLinks
     public const string Website = "https://byteroom.org";
 
     public const string AppName = "Byteroom";
-    public const string Version = "1.0.0";
+    public const string Version = "1.0.1";
 }

@@ -18,7 +18,7 @@ Et Windows-verktøy som ser ut som Utforskeren, men som hjelper deg å finne
 
 Se [Releases](https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest):
 
-- **Installer** (`Byteroom-Setup-1.0.0.exe`) — installerer som et vanlig program.
+- **Installer** (`Byteroom-Setup-1.0.1.exe`) — installerer som et vanlig program.
 - **Portabel** (`Byteroom.exe`) — ingen installasjon, bare dobbeltklikk.
 
 Begge kjører på Windows 10/11 (64-bit) uten at .NET må installeres.

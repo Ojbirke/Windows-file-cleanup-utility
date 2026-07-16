@@ -67,11 +67,11 @@
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center">
-                        <Hyperlink Click="OnOpenWebsite" TextDecorations="{x:Null}" Foreground="{StaticResource SubtleText}"><Run Text="{Binding [Link_Website], Source={x:Static local:Loc.I}}"/></Hyperlink>
+                        <Hyperlink Click="OnOpenWebsite" TextDecorations="{x:Null}" Foreground="{StaticResource SubtleText}"><Run Text="{Binding [Link_Website], Source={x:Static local:Loc.I}, Mode=OneWay}"/></Hyperlink>
                     </TextBlock>
                     <TextBlock Text="·" Margin="8,0" Foreground="{StaticResource SubtleText}" VerticalAlignment="Center"/>
                     <TextBlock VerticalAlignment="Center">
-                        <Hyperlink Click="OnDonate" TextDecorations="{x:Null}" Foreground="#C62828"><Run Text="{Binding [Link_Donate], Source={x:Static local:Loc.I}}"/></Hyperlink>
+                        <Hyperlink Click="OnDonate" TextDecorations="{x:Null}" Foreground="#C62828"><Run Text="{Binding [Link_Donate], Source={x:Static local:Loc.I}, Mode=OneWay}"/></Hyperlink>
                     </TextBlock>
                 </StackPanel>
                 <TextBlock x:Name="StatusText" VerticalAlignment="Center"

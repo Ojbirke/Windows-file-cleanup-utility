@@ -3,7 +3,7 @@
 ; sluttbrukeren trenger IKKE ha .NET installert.
 
 #define MyAppName "Byteroom"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "Byteroom"
 #define MyAppURL "https://github.com/Ojbirke/Windows-file-cleanup-utility"
 #define MyAppExeName "Byteroom.exe"

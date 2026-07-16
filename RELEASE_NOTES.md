@@ -7,8 +7,12 @@ Første offisielle utgivelse av **Byteroom** — et Windows-verktøy som ser ut 
 - **Trygg sletting** — alt går til papirkurven, aldri rett i søpla.
 - **Hurtigfilter** — vis «bare trygge» med ett klikk.
 
+## 🌐 Nytt i 1.0.1
+- **Tospråklig**: hele appen på norsk og engelsk, med 🌐-bryter (auto-velger etter Windows-språket).
+- **Feilrettet**: appen krasjet ved oppstart når den var lastet ned fra internett (TwoWay-binding mot skrivebeskyttet språkressurs).
+
 ## ⬇️ Last ned
-- **Byteroom-Setup-1.0.0.exe** — installer (Start-meny + avinstaller). Anbefalt.
+- **Byteroom-Setup-1.0.1.exe** — installer (Start-meny + avinstaller). Anbefalt.
 - **Byteroom.exe** — portabel, ingen installasjon. Bare dobbeltklikk.
 
 Krever Windows 10/11 (64-bit). **Ingen .NET nødvendig.**
