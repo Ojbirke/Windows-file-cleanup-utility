@@ -202,6 +202,15 @@
   .dl ul { margin: 0 0 20px; padding-left: 18px; color: var(--muted); font-size: .94rem; }
   .dl ul li { margin: 4px 0; }
   .dl .btn { justify-content: center; margin-top: auto; }
+  .dl-note {
+    max-width: 640px; margin: 30px auto 0; text-align: left;
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 18px 22px; display: flex; gap: 14px; align-items: flex-start;
+  }
+  .dl-note .shield { font-size: 22px; line-height: 1.2; flex: none; }
+  .dl-note h4 { margin: 0 0 6px; font-size: 1rem; }
+  .dl-note p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.55; }
+  .dl-note a { color: var(--accent); }
 
   /* DONATE */
   .donate { text-align: center; }
@@ -390,6 +399,14 @@
         <a class="btn btn-ghost" data-i18n="dl2_btn" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/Byteroom.exe">↓ Last ned portabel</a>
       </div>
     </div>
+
+    <div class="dl-note">
+      <span class="shield" aria-hidden="true">🛡️</span>
+      <div>
+        <h4 data-i18n="note_title">Er programmet trygt?</h4>
+        <p data-i18n-html="note_body">Ja. Windows kan vise «Windows beskyttet PC-en» første gang — det er normalt for nye programmer som ennå ikke er kodesignert, ikke et tegn på virus. Klikk <strong>Mer info → Kjør likevel</strong>. Byteroom er trygt: <strong>åpen kildekode</strong> (se alt på <a href="https://github.com/Ojbirke/Windows-file-cleanup-utility">GitHub</a>), <strong>ingen data forlater PC-en</strong>, og sletting går <strong>alltid til papirkurven</strong> — aldri permanent.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -469,6 +486,11 @@
     dl2_li2: { no: `Kjør fra minnepenn`, en: `Run from a USB stick` },
     dl2_li3: { no: `Bare dobbeltklikk`, en: `Just double-click` },
     dl2_btn: { no: `↓ Last ned portabel`, en: `↓ Download portable` },
+    note_title: { no: `Er programmet trygt?`, en: `Is it safe?` },
+    note_body: {
+      no: `Ja. Windows kan vise «Windows beskyttet PC-en» første gang — det er normalt for nye programmer som ennå ikke er kodesignert, ikke et tegn på virus. Klikk <strong>Mer info → Kjør likevel</strong>. Byteroom er trygt: <strong>åpen kildekode</strong> (se alt på <a href="https://github.com/Ojbirke/Windows-file-cleanup-utility">GitHub</a>), <strong>ingen data forlater PC-en</strong>, og sletting går <strong>alltid til papirkurven</strong> — aldri permanent.`,
+      en: `Yes. Windows may show “Windows protected your PC” the first time — that's normal for new apps that aren't code-signed yet, not a sign of a virus. Click <strong>More info → Run anyway</strong>. Byteroom is safe: <strong>open source</strong> (see everything on <a href="https://github.com/Ojbirke/Windows-file-cleanup-utility">GitHub</a>), <strong>no data leaves your PC</strong>, and deletion always goes <strong>to the Recycle Bin</strong> — never permanent.`
+    },
     donate_h2: { no: `Liker du Byteroom?`, en: `Do you like Byteroom?` },
     donate_lede: { no: `Programmet er gratis. Vil du takke for jobben, setter jeg stor pris på en liten donasjon — den holder prosjektet i live.`, en: `The app is free. If you'd like to say thanks, a small donation is hugely appreciated — it keeps the project alive.` },
     donate_btn: { no: `Spander en kaffe ☕`, en: `Buy me a coffee ☕` },
