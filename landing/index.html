@@ -214,6 +214,13 @@
   .dl-note p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.55; }
   .dl-note a { color: var(--accent); }
 
+  /* OM UTVIKLEREN */
+  .studio { text-align: center; }
+  .studio .section-lede { margin-inline: auto; margin-bottom: 26px; }
+  .apps-label { font-family: var(--mono); font-size: .76rem; letter-spacing: .05em; text-transform: uppercase; color: var(--faint); margin: 0 0 14px; }
+  .apps { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 0 0 30px; }
+  .chip { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 7px 15px; font-size: .88rem; color: var(--muted); }
+
   /* DONATE */
   .donate { text-align: center; }
   .heart-wrap { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: color-mix(in srgb, var(--danger) 18%, transparent); margin-bottom: 8px; }
@@ -225,6 +232,8 @@
   .foot-links { display: flex; gap: 20px; }
   .foot-links a { text-decoration: none; color: var(--muted); }
   .foot-links a:hover { color: var(--ink); }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
 
   @media (max-width: 860px) {
     .hero { grid-template-columns: 1fr; gap: 36px; padding: 36px 0 52px; }
@@ -257,6 +266,7 @@
           <a href="#funksjoner" data-i18n="nav_features">Funksjoner</a>
           <a href="#sikkerhet" data-i18n="nav_safety">Sikkerhet</a>
           <a href="#last" data-i18n="nav_download">Last ned</a>
+          <a href="#om" data-i18n="nav_about">Om</a>
           <a href="https://github.com/Ojbirke/Windows-file-cleanup-utility">GitHub</a>
         </div>
         <button class="lang-toggle" type="button" onclick="toggleLang()" aria-label="Language / språk">
@@ -412,6 +422,25 @@
   </div>
 </section>
 
+<section id="om">
+  <div class="wrap studio">
+    <p class="kicker" data-i18n="om_kicker">Om utvikleren</p>
+    <h2 data-i18n="om_h2">Vi lager apper som gjør hverdagen enklere.</h2>
+    <p class="section-lede" data-i18n-html="om_lede">Byteroom er laget av <strong>Birkeland Digital</strong> — et lite norsk app-studio som bygger praktiske verktøy for hverdagen. Fra fotballtrening og vanesporing til digital kvalitetssikring og dagbøker: alltid med vekt på at det skal være enkelt å ta i bruk, og at det faktisk løser et ekte problem.</p>
+    <p class="apps-label" data-i18n="om_apps_label">Andre apper fra studioet</p>
+    <div class="apps">
+      <span class="chip">QMerk</span>
+      <span class="chip">MyTeams</span>
+      <span class="chip">Matchday</span>
+      <span class="chip">Daily Clarity</span>
+      <span class="chip">Habivo</span>
+      <span class="chip">Rise and Feed</span>
+      <span class="chip">ManageMyApps</span>
+    </div>
+    <a class="btn btn-ghost" data-i18n="om_btn" href="https://birkelanddigital.no">Se alle appene på birkelanddigital.no →</a>
+  </div>
+</section>
+
 <section class="donate">
   <div class="wrap">
     <div class="heart-wrap"><span style="font-size:26px">❤</span></div>
@@ -423,8 +452,9 @@
 
 <footer>
   <div class="wrap foot-row">
-    <div data-i18n="foot_made">Byteroom · v1.0.1 · Laget for Windows</div>
+    <div data-i18n-html="foot_made">Byteroom · v1.0.1 · Laget av <a href="https://birkelanddigital.no">Birkeland Digital</a></div>
     <div class="foot-links">
+      <a href="https://birkelanddigital.no">Birkeland Digital</a>
       <a href="#last" data-i18n="foot_download">Last ned</a>
       <a href="https://github.com/Ojbirke/Windows-file-cleanup-utility">GitHub</a>
       <a href="https://www.paypal.me/ojbirke" data-i18n="foot_donate">Doner</a>
@@ -438,6 +468,15 @@
     nav_features: { no: `Funksjoner`, en: `Features` },
     nav_safety: { no: `Sikkerhet`, en: `Safety` },
     nav_download: { no: `Last ned`, en: `Download` },
+    nav_about: { no: `Om`, en: `About` },
+    om_kicker: { no: `Om utvikleren`, en: `About the developer` },
+    om_h2: { no: `Vi lager apper som gjør hverdagen enklere.`, en: `We build apps that make everyday life easier.` },
+    om_lede: {
+      no: `Byteroom er laget av <strong>Birkeland Digital</strong> — et lite norsk app-studio som bygger praktiske verktøy for hverdagen. Fra fotballtrening og vanesporing til digital kvalitetssikring og dagbøker: alltid med vekt på at det skal være enkelt å ta i bruk, og at det faktisk løser et ekte problem.`,
+      en: `Byteroom is made by <strong>Birkeland Digital</strong> — a small Norwegian app studio building practical everyday tools. From football coaching and habit tracking to digital quality assurance and journaling: always focused on being easy to pick up, and on solving a real problem.`
+    },
+    om_apps_label: { no: `Andre apper fra studioet`, en: `Other apps from the studio` },
+    om_btn: { no: `Se alle appene på birkelanddigital.no →`, en: `See all the apps at birkelanddigital.no →` },
     hero_eyebrow: { no: `Windows 10 & 11 · Gratis`, en: `Windows 10 & 11 · Free` },
     hero_h1: { no: `Finn de <span class="hl">store filene</span> som spiser opp disken din.`, en: `Find the <span class="hl">big files</span> eating up your disk.` },
     hero_lede: { no: `Skann en mappe eller hele disken, se de største filene øverst, og få vite hvilke som er <strong>trygge å slette</strong> — alt med utseende og følelse som Utforskeren.`, en: `Scan a folder or your whole disk, see the biggest files first, and learn which are <strong>safe to delete</strong> — all with the look and feel of File Explorer.` },
@@ -496,7 +535,10 @@
     donate_h2: { no: `Liker du Byteroom?`, en: `Do you like Byteroom?` },
     donate_lede: { no: `Programmet er gratis. Vil du takke for jobben, setter jeg stor pris på en liten donasjon — den holder prosjektet i live.`, en: `The app is free. If you'd like to say thanks, a small donation is hugely appreciated — it keeps the project alive.` },
     donate_btn: { no: `Spander en kaffe ☕`, en: `Buy me a coffee ☕` },
-    foot_made: { no: `Byteroom · v1.0.1 · Laget for Windows`, en: `Byteroom · v1.0.1 · Made for Windows` },
+    foot_made: {
+      no: `Byteroom · v1.0.1 · Laget av <a href="https://birkelanddigital.no">Birkeland Digital</a>`,
+      en: `Byteroom · v1.0.1 · Made by <a href="https://birkelanddigital.no">Birkeland Digital</a>`
+    },
     foot_download: { no: `Last ned`, en: `Download` },
     foot_donate: { no: `Doner`, en: `Donate` },
   };
