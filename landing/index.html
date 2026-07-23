@@ -29,7 +29,8 @@
     --radius: 14px;
     --maxw: 1080px;
     --mono: "Cascadia Code", "Cascadia Mono", Consolas, "SF Mono", ui-monospace, monospace;
-    --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
     --shadow: 0 24px 60px -20px rgba(0,0,0,.6);
   }
   @media (prefers-color-scheme: light) {
@@ -122,6 +123,7 @@
     background: var(--panel);
   }
   h1 {
+    font-family: var(--display);
     font-size: clamp(2.5rem, 5.6vw, 4.1rem); line-height: 1.02; letter-spacing: -.03em;
     margin: 20px 0 16px; text-wrap: balance; font-weight: 800;
   }
@@ -160,6 +162,25 @@
   th { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); font-weight: 600; }
   td.size { font-family: var(--mono); text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
   tr:last-child td { border-bottom: none; }
+  tbody tr { transition: opacity .5s ease; }
+  tbody tr:hover td { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+  tbody tr.deleted { opacity: .38; }
+  tbody tr.deleted .fname { text-decoration: line-through; }
+
+  /* Explorer-statuslinje med diskmåler */
+  .statusbar {
+    display: flex; align-items: center; gap: 14px; padding: 10px 14px;
+    border-top: 1px solid var(--line); background: var(--panel-2);
+    font-family: var(--mono); font-size: .74rem; color: var(--faint); white-space: nowrap;
+  }
+  .drivebar {
+    flex: 1; min-width: 60px; height: 8px; border-radius: 4px; overflow: hidden;
+    display: flex; background: color-mix(in srgb, var(--line) 55%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--line) 70%, transparent);
+  }
+  .db-used { width: 12.5%; background: var(--accent); }
+  .db-del { width: 83%; background: var(--safe); opacity: .85; transition: width 1.4s cubic-bezier(.2,.7,.3,1); }
+  .db-free b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
   .safety { display: inline-block; width: 11px; height: 11px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(0,0,0,.25) inset; }
   .s-safe { background: var(--safe); box-shadow: 0 0 10px color-mix(in srgb, var(--safe) 60%, transparent); }
   .s-warn { background: var(--warn); }
@@ -170,12 +191,19 @@
   /* SECTIONS */
   section { padding: 72px 0; border-bottom: 1px solid var(--line); }
   .kicker { font-family: var(--mono); font-size: .8rem; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin: 0 0 12px; }
-  h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); letter-spacing: -.02em; margin: 0 0 14px; text-wrap: balance; font-weight: 750; }
+  h2 { font-family: var(--display); font-size: clamp(1.8rem, 3.4vw, 2.5rem); letter-spacing: -.02em; margin: 0 0 14px; text-wrap: balance; font-weight: 750; }
   .section-lede { color: var(--muted); max-width: 60ch; font-size: 1.08rem; margin: 0 0 40px; }
 
   .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
-  .card .ico { width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; margin-bottom: 16px; background: var(--panel-2); border: 1px solid var(--line); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; transition: transform .16s ease, border-color .16s ease; }
+  .card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+  .card .ico {
+    width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; margin-bottom: 16px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line));
+    color: var(--accent);
+  }
+  .card .ico svg { width: 22px; height: 22px; }
   .card h3 { margin: 0 0 8px; font-size: 1.12rem; letter-spacing: -.01em; }
   .card p { margin: 0; color: var(--muted); font-size: .96rem; }
 
@@ -235,6 +263,11 @@
   footer a { color: var(--muted); text-decoration: none; }
   footer a:hover { color: var(--ink); }
 
+  /* Scroll-reveal — skjules kun når JS faktisk kjører (.js på <html>) */
+  .reveal { transition: opacity .55s ease, transform .55s ease; }
+  .js .reveal { opacity: 0; transform: translateY(16px); }
+  .js .reveal.in { opacity: 1; transform: none; }
+
   @media (max-width: 860px) {
     .hero { grid-template-columns: 1fr; gap: 36px; padding: 36px 0 52px; }
     .features, .safety-grid { grid-template-columns: 1fr 1fr; }
@@ -247,6 +280,9 @@
   @media (prefers-reduced-motion: reduce) {
     .scanbar::after { animation: none; left: 0; width: 60%; }
     .btn:hover { transform: none; }
+    .card:hover { transform: none; }
+    .reveal, .js .reveal { opacity: 1; transform: none; transition: none; }
+    .db-del, tbody tr { transition: none; }
   }
 </style>
 
@@ -304,14 +340,19 @@
         <table>
           <thead><tr><th style="width:26px"></th><th data-i18n="mock_col_name">Navn</th><th style="text-align:right" data-i18n="mock_col_size">Størrelse</th></tr></thead>
           <tbody>
-            <tr><td><span class="safety s-safe"></span></td><td class="fname">Log (old 8).txt</td><td class="size">210.1 GB</td></tr>
+            <tr data-del><td><span class="safety s-safe"></span></td><td class="fname">Log (old 8).txt</td><td class="size">210.1 GB</td></tr>
             <tr><td><span class="safety s-warn"></span></td><td class="fname">Ubuntu.vhdx</td><td class="size">12.8 GB</td></tr>
-            <tr><td><span class="safety s-safe"></span></td><td class="fname">BDC1C_2_Logs.zip</td><td class="size">1.8 GB</td></tr>
-            <tr><td><span class="safety s-safe"></span></td><td class="fname">WriteCommand.log</td><td class="size">162.5 MB</td></tr>
+            <tr data-del><td><span class="safety s-safe"></span></td><td class="fname">BDC1C_2_Logs.zip</td><td class="size">1.8 GB</td></tr>
+            <tr data-del><td><span class="safety s-safe"></span></td><td class="fname">WriteCommand.log</td><td class="size">162.5 MB</td></tr>
             <tr><td><span class="safety s-warn"></span></td><td class="fname">radiation.wmv</td><td class="size">510.5 MB</td></tr>
             <tr><td><span class="safety s-danger"></span></td><td class="fname">d3d11.dll <span class="path">· Program Files</span></td><td class="size">104.3 MB</td></tr>
           </tbody>
         </table>
+        <div class="statusbar">
+          <span data-i18n="mock_status">225,4 GB funnet</span>
+          <div class="drivebar" aria-hidden="true"><span class="db-used"></span><span class="db-del" id="dbDel"></span></div>
+          <span class="db-free"><b id="dbFreeNum">12</b> <span data-i18n="mock_free_of">GB ledig av 256 GB</span></span>
+        </div>
       </div>
     </header>
   </div>
@@ -323,33 +364,33 @@
     <h2 data-i18n="feat_h2">Rydd opp uten å gjette.</h2>
     <p class="section-lede" data-i18n="feat_lede">Byteroom graver gjennom disken, sorterer alt etter størrelse og forteller deg hva hver fil faktisk er — så du frigjør plass med selvtillit.</p>
     <div class="features">
-      <div class="card">
-        <div class="ico">📊</div>
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5v14"/><path d="M12 10v9"/><path d="M19 15v4"/></svg></div>
         <h3 data-i18n="feat1_h3">Største først</h3>
         <p data-i18n="feat1_p">Rekursiv skann av en mappe eller hel disk, sortert så plassgrisene ligger øverst. Lever fremdrift underveis — mapper, filer og gigabyte i sanntid.</p>
       </div>
-      <div class="card">
-        <div class="ico">🚦</div>
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="2.6" fill="var(--safe)"/><circle cx="12" cy="12" r="2.6" fill="var(--warn)"/><circle cx="12" cy="19" r="2.6" fill="var(--danger)"/></svg></div>
         <h3 data-i18n="feat2_h3">Fargekodet trygghet</h3>
         <p data-i18n="feat2_p">Grønn, gul eller rød prikk på hver fil. Kjenner igjen apper som Zwift og Steam, cache, logger, systemfiler og dine egne dokumenter.</p>
       </div>
-      <div class="card">
-        <div class="ico">🔬</div>
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/><path d="M14 3v5h5"/><circle cx="11.5" cy="13.5" r="2.5"/><path d="m13.5 15.5 2 2"/></svg></div>
         <h3 data-i18n="feat3_h3">Analyse per fil</h3>
         <p data-i18n="feat3_p">Klikk en fil og se hva den er, hvilket program den hører til og en anbefaling om det er trygt å slette — alt lokalt, ingen data forlater PC-en.</p>
       </div>
-      <div class="card">
-        <div class="ico">🗑️</div>
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14"/><path d="M10 11v6M14 11v6"/></svg></div>
         <h3 data-i18n="feat4_h3">Trygg sletting</h3>
         <p data-i18n="feat4_p">Alt går til papirkurven, aldri rett i søpla. Angre når som helst. Ledig diskplass oppdateres med én gang.</p>
       </div>
-      <div class="card">
-        <div class="ico">⚡</div>
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 5h18l-7 8v5l-4 2v-7L3 5z"/></svg></div>
         <h3 data-i18n="feat5_h3">Hurtigfilter</h3>
         <p data-i18n="feat5_p">Vis «bare trygge» med ett klikk, eller filtrer på størrelse. Samle alt det grønne øverst og slett i bulk.</p>
       </div>
-      <div class="card">
-        <div class="ico">🪟</div>
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></div>
         <h3 data-i18n="feat6_h3">Kjent grensesnitt</h3>
         <p data-i18n="feat6_p">Ser ut og føles som Utforskeren — diskliste med ledig plass, sorterbare kolonner, høyreklikk-meny. Ingen læringskurve.</p>
       </div>
@@ -363,19 +404,19 @@
     <h2 data-i18n="safe_h2">Fire farger. Null gjetting.</h2>
     <p class="section-lede" data-i18n="safe_lede">Hver fil får en vurdering ut fra hvor den ligger og hva den er. Vurderingen er en lokal beste-gjetning — du bestemmer alltid selv.</p>
     <div class="safety-grid">
-      <div class="tl safe">
+      <div class="tl safe reveal">
         <div class="lbl" data-i18n-html="safe1_lbl"><span class="safety s-safe"></span> Trygg å slette</div>
         <p data-i18n="safe1_p">Cache, midlertidige filer, logger, krasjdumper og ferdige installasjonsfiler. Bygges opp igjen ved behov.</p>
       </div>
-      <div class="tl warn">
+      <div class="tl warn reveal">
         <div class="lbl" data-i18n-html="safe2_lbl"><span class="safety s-warn"></span> Vær forsiktig</div>
         <p data-i18n="safe2_p">Dine dokumenter, bilder, video, arkiver og skyfiler. Sjekk at du ikke trenger innholdet før du sletter.</p>
       </div>
-      <div class="tl danger">
+      <div class="tl danger reveal">
         <div class="lbl" data-i18n-html="safe3_lbl"><span class="safety s-danger"></span> Bør ikke slettes</div>
         <p data-i18n="safe3_p">Windows-systemfiler og filer inne i installerte programmer. Avinstaller heller hele programmet.</p>
       </div>
-      <div class="tl unknown">
+      <div class="tl unknown reveal">
         <div class="lbl" data-i18n-html="safe4_lbl"><span class="safety" style="background:var(--unknown)"></span> Usikker</div>
         <p data-i18n="safe4_p">Filer programmet ikke klarer å plassere trygt. Undersøk i Utforsker før du bestemmer deg.</p>
       </div>
@@ -389,7 +430,7 @@
     <h2 data-i18n="dl_h2">Velg din versjon.</h2>
     <p class="section-lede" style="margin-inline:auto" data-i18n="dl_lede">Begge kjører på Windows 10 og 11 (64-bit) uten at .NET må installeres.</p>
     <div class="dl-cards">
-      <div class="dl reco">
+      <div class="dl reco reveal">
         <span class="badge" data-i18n="dl_badge">Anbefalt</span>
         <h3 data-i18n="dl1_h3">Installer</h3>
         <div class="meta">Byteroom-Setup-1.0.1.exe · 66 MB</div>
@@ -400,7 +441,7 @@
         </ul>
         <a class="btn btn-primary" data-i18n="dl1_btn" href="https://github.com/Ojbirke/Windows-file-cleanup-utility/releases/latest/download/Byteroom-Setup-1.0.1.exe">↓ Last ned installer</a>
       </div>
-      <div class="dl">
+      <div class="dl reveal">
         <h3 data-i18n="dl2_h3">Portabel</h3>
         <div class="meta">Byteroom.exe · 71 MB</div>
         <ul>
@@ -412,7 +453,7 @@
       </div>
     </div>
 
-    <div class="dl-note">
+    <div class="dl-note reveal">
       <span class="shield" aria-hidden="true">🛡️</span>
       <div>
         <h4 data-i18n="note_title">Er programmet trygt?</h4>
@@ -487,6 +528,8 @@
     mock_folders: { no: `1 284 mapper`, en: `1,284 folders` },
     mock_col_name: { no: `Navn`, en: `Name` },
     mock_col_size: { no: `Størrelse`, en: `Size` },
+    mock_status: { no: `225,4 GB funnet`, en: `225.4 GB found` },
+    mock_free_of: { no: `GB ledig av 256 GB`, en: `GB free of 256 GB` },
     feat_kicker: { no: `Hva det gjør`, en: `What it does` },
     feat_h2: { no: `Rydd opp uten å gjette.`, en: `Clean up without guessing.` },
     feat_lede: { no: `Byteroom graver gjennom disken, sorterer alt etter størrelse og forteller deg hva hver fil faktisk er — så du frigjør plass med selvtillit.`, en: `Byteroom digs through your disk, sorts everything by size and tells you what each file actually is — so you free up space with confidence.` },
@@ -571,5 +614,54 @@
     var nav = (navigator.language || 'en').toLowerCase();
     var initial = saved || (nav.charAt(0) === 'n' ? 'no' : 'en');
     applyLang(initial);
+  })();
+
+  /* Mockup-demo: trygge filer slettes, diskmåleren tømmes, ledig plass teller opp */
+  (function () {
+    var reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    var rows = document.querySelectorAll('tr[data-del]');
+    var del = document.getElementById('dbDel');
+    var num = document.getElementById('dbFreeNum');
+    if (!del || !num) return;
+    if (reduce) {
+      rows.forEach(function (r) { r.classList.add('deleted'); });
+      del.style.width = '0%';
+      num.textContent = '224';
+      return;
+    }
+    setTimeout(function () {
+      rows.forEach(function (r, i) {
+        setTimeout(function () { r.classList.add('deleted'); }, i * 260);
+      });
+      del.style.width = '0%';
+      var t0 = null;
+      function step(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min((ts - t0) / 1400, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        num.textContent = Math.round(12 + 212 * eased);
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      setTimeout(function () { num.textContent = '224'; }, 1800);
+    }, 1600);
+  })();
+
+  /* Scroll-reveal */
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('js');
+    els.forEach(function (el) {
+      var i = Array.prototype.indexOf.call(el.parentElement.children, el);
+      el.style.transitionDelay = (i % 8) * 70 + 'ms';
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(function (el) { io.observe(el); });
   })();
 </script>
